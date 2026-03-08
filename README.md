@@ -67,16 +67,7 @@ Open http://localhost:3000 in your browser.
 - `npm run start` - start production server
 - `npm run lint` - run ESLint
 
-## Notes
 
-- All portfolio images are stored in `public/images`.
-- The project uses `next/image` for optimized image rendering.
-- Main page composition is in `app/page.tsx`.
-- Site metadata is configured in `app/layout.tsx`.
-
-## Customization
-
-To personalize this portfolio, update:
 
 - Name, role, and text content in `components/*`
 - Project and certification data in `components/projects.tsx` and `components/certifications.tsx`
