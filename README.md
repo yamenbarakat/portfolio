@@ -67,9 +67,3 @@ Open http://localhost:3000 in your browser.
 - `npm run start` - start production server
 - `npm run lint` - run ESLint
 
-
-
-- Name, role, and text content in `components/*`
-- Project and certification data in `components/projects.tsx` and `components/certifications.tsx`
-- Contact links in `components/contact.tsx` and `components/footer.tsx`
-- Theme variables in `app/globals.css`
