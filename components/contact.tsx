@@ -1,25 +1,52 @@
-"use client"
+"use client";
 
-import { useRef, useState } from "react"
-import { Send, Mail, Github, Linkedin } from "lucide-react"
-import { useInView } from "@/hooks/use-in-view"
+import { useRef, useState } from "react";
+import {
+  FiSend as Send,
+  FiMail as Mail,
+  FiGithub as GithubIcon,
+} from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
+import { useInView } from "@/hooks/use-in-view";
+import { sendContactEmail } from "@/app/actions/contact";
 
 export function Contact() {
-  const headingRef = useRef<HTMLDivElement>(null)
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 })
-  const formRef = useRef<HTMLDivElement>(null)
-  const isFormInView = useInView(formRef, { threshold: 0.1 })
+  const headingRef = useRef<HTMLDivElement>(null);
+  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
+  const formRef = useRef<HTMLDivElement>(null);
+  const isFormInView = useInView(formRef, { threshold: 0.1 });
 
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Placeholder submit — replace with your own logic
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
-    setFormData({ name: "", email: "", message: "" })
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+
+    const result = await sendContactEmail(formData);
+
+    if (result.success) {
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 4000);
+    } else {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
+  };
+
+  const getButtonLabel = () => {
+    if (status === "loading") return "Sending...";
+    if (status === "success") return "Message Sent!";
+    if (status === "error") return "Failed, Try Again";
+    return "Send Message";
+  };
 
   return (
     <section id="contact" className="py-24 md:py-32">
@@ -37,13 +64,17 @@ export function Contact() {
         <div
           ref={formRef}
           className={`flex flex-col gap-12 md:flex-row md:gap-16 transition-all duration-700 ease-out ${
-            isFormInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            isFormInView
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Contact Form */}
           <form onSubmit={handleSubmit} className="flex-1 space-y-6">
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium text-foreground">
+              <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-medium text-foreground"
+              >
                 Name
               </label>
               <input
@@ -51,13 +82,18 @@ export function Contact() {
                 id="name"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="Your name"
                 className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">
+              <label
+                htmlFor="email"
+                className="mb-2 block text-sm font-medium text-foreground"
+              >
                 Email
               </label>
               <input
@@ -65,13 +101,18 @@ export function Contact() {
                 id="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 placeholder="your@email.com"
                 className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
             <div>
-              <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
+              <label
+                htmlFor="message"
+                className="mb-2 block text-sm font-medium text-foreground"
+              >
                 Message
               </label>
               <textarea
@@ -79,21 +120,31 @@ export function Contact() {
                 required
                 rows={5}
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 placeholder="Your message..."
                 className="w-full resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
             <button
               type="submit"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+              disabled={status === "loading"}
+              className={`inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm font-semibold transition-all
+                ${
+                  status === "error"
+                    ? "bg-red-500 text-white"
+                    : status === "success"
+                      ? "bg-green-500 text-white"
+                      : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+                } disabled:opacity-70 disabled:cursor-not-allowed`}
             >
-              {isSubmitted ? "Message Sent!" : "Send Message"}
+              {getButtonLabel()}
               <Send className="h-4 w-4" />
             </button>
           </form>
 
-          {/* Contact Info */}
+          {/* Contact Info — unchanged */}
           <div className="flex flex-col justify-center gap-8 md:w-80">
             <div>
               <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
@@ -105,43 +156,42 @@ export function Contact() {
                 reach out!
               </p>
             </div>
-
             <div className="space-y-4">
               <a
-                href="mailto:your@email.com"
+                href="mailto:yamen.barakat.1994@gmail.com"
                 className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
                   <Mail className="h-4 w-4 text-primary" />
                 </div>
-                your@email.com
+                yamen.barakat.1994@gmail.com
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/yamenbarakat"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
-                  <Github className="h-4 w-4 text-primary" />
+                  <GithubIcon className="h-4 w-4 text-primary" />
                 </div>
-                github.com/yourusername
+                github.com/yamenbarakat
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://wa.me/963987319420"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary">
-                  <Linkedin className="h-4 w-4 text-primary" />
+                  <FaWhatsapp className="h-4 w-4 text-primary" />
                 </div>
-                linkedin.com/in/yourprofile
+                +963987319420
               </a>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,10 +1,15 @@
-import { Github, Linkedin, Mail } from "lucide-react"
+import { FiGithub as GithubIcon, FiMail as Mail } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 const socialLinks = [
-  { href: "mailto:your@email.com", icon: Mail, label: "Email" },
-  { href: "https://github.com", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com", icon: Linkedin, label: "LinkedIn" },
-]
+  { href: "mailto:yamen.barakat.1994@gmail.com", icon: Mail, label: "Email" },
+  {
+    href: "https://github.com/yamenbarakat",
+    icon: GithubIcon,
+    label: "GitHub",
+  },
+  { href: "https://wa.me/963987319420", icon: FaWhatsapp, label: "WhatsApp" },
+];
 
 export function Footer() {
   return (
@@ -21,7 +26,11 @@ export function Footer() {
               key={link.label}
               href={link.href}
               target={link.href.startsWith("mailto") ? undefined : "_blank"}
-              rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+              rel={
+                link.href.startsWith("mailto")
+                  ? undefined
+                  : "noopener noreferrer"
+              }
               className="text-muted-foreground transition-colors hover:text-primary"
               aria-label={link.label}
             >
@@ -31,5 +40,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

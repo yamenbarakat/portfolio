@@ -57,7 +57,7 @@ export function About() {
             </p>
             <p className="leading-relaxed text-muted-foreground">
               When I&apos;m not coding, you&apos;ll find me playing video games
-              or exploring new technologies, . I believe in continuous learning
+              or exploring new technologies. I believe in continuous learning
               and strive to stay ahead in this ever-evolving field.
             </p>
           </div>

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { FiExternalLink as ExternalLink } from "react-icons/fi";
 import { useInView } from "@/hooks/use-in-view";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 

@@ -2,7 +2,11 @@
 
 import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  FiX as X,
+  FiChevronLeft as ChevronLeft,
+  FiChevronRight as ChevronRight,
+} from "react-icons/fi";
 import { useInView } from "@/hooks/use-in-view";
 
 const certifications = [
