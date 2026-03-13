@@ -1,75 +1,80 @@
-"use client"
+"use client";
 
-import { useRef, useState, useCallback, useEffect } from "react"
-import Image from "next/image"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import { useInView } from "@/hooks/use-in-view"
+import { useRef, useState, useCallback, useEffect } from "react";
+import Image from "next/image";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
 
 const certifications = [
   {
-    title: "Full Stack Web Development",
-    issuer: "Placeholder Academy",
-    image: "/images/cert-1.jpg",
+    title: "Front End Developer Nano Degree",
+    issuer: "Udacity",
+    image: "/images/cert-1.png",
   },
   {
-    title: "React Developer Certification",
-    issuer: "Placeholder Institute",
-    image: "/images/cert-2.jpg",
+    title: "Java Script Nano Degree",
+    issuer: "Udacity",
+    image: "/images/cert-2.png",
   },
   {
-    title: "Node.js Backend Mastery",
-    issuer: "Placeholder University",
-    image: "/images/cert-3.jpg",
+    title: "React.js & Next.js",
+    issuer: "Udemy",
+    image: "/images/cert-3.png",
   },
   {
-    title: "MongoDB Database Specialist",
-    issuer: "Placeholder Platform",
-    image: "/images/cert-4.jpg",
+    title: "Advanced Css & Sass",
+    issuer: "Udemy",
+    image: "/images/cert-4.png",
   },
   {
-    title: "JavaScript Advanced Concepts",
-    issuer: "Placeholder Academy",
+    title: "Html & Css",
+    issuer: "Udemy",
     image: "/images/cert-5.jpg",
   },
   {
-    title: "TypeScript Professional",
-    issuer: "Placeholder Institute",
-    image: "/images/cert-6.jpg",
+    title: "Web Development",
+    issuer: "Coursera",
+    image: "/images/cert-6.png",
   },
-]
+  {
+    title: "Html, Css & Java Script",
+    issuer: "Coursera",
+    image: "/images/cert-7.png",
+  },
+];
 
 export function Certifications() {
-  const headingRef = useRef<HTMLDivElement>(null)
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 })
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const headingRef = useRef<HTMLDivElement>(null);
+  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
-  const openLightbox = (index: number) => setLightboxIndex(index)
-  const closeLightbox = useCallback(() => setLightboxIndex(null), [])
+  const openLightbox = (index: number) => setLightboxIndex(index);
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 
   const goNext = useCallback(() => {
     setLightboxIndex((prev) =>
-      prev !== null ? (prev + 1) % certifications.length : null
-    )
-  }, [])
+      prev !== null ? (prev + 1) % certifications.length : null,
+    );
+  }, []);
 
   const goPrev = useCallback(() => {
     setLightboxIndex((prev) =>
       prev !== null
         ? (prev - 1 + certifications.length) % certifications.length
-        : null
-    )
-  }, [])
+        : null,
+    );
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (lightboxIndex === null) return
-      if (e.key === "Escape") closeLightbox()
-      if (e.key === "ArrowRight") goNext()
-      if (e.key === "ArrowLeft") goPrev()
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [lightboxIndex, closeLightbox, goNext, goPrev])
+      if (lightboxIndex === null) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, closeLightbox, goNext, goPrev]);
 
   return (
     <section id="certifications" className="py-24 md:py-32">
@@ -86,7 +91,12 @@ export function Certifications() {
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6">
           {certifications.map((cert, i) => (
-            <CertCard key={cert.title} cert={cert} index={i} onClick={() => openLightbox(i)} />
+            <CertCard
+              key={cert.title}
+              cert={cert}
+              index={i}
+              onClick={() => openLightbox(i)}
+            />
           ))}
         </div>
       </div>
@@ -110,8 +120,8 @@ export function Certifications() {
 
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              goPrev()
+              e.stopPropagation();
+              goPrev();
             }}
             className="absolute left-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:left-8"
             aria-label="Previous certificate"
@@ -143,8 +153,8 @@ export function Certifications() {
 
           <button
             onClick={(e) => {
-              e.stopPropagation()
-              goNext()
+              e.stopPropagation();
+              goNext();
             }}
             className="absolute right-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:right-8"
             aria-label="Next certificate"
@@ -154,7 +164,7 @@ export function Certifications() {
         </div>
       )}
     </section>
-  )
+  );
 }
 
 function CertCard({
@@ -162,12 +172,12 @@ function CertCard({
   index,
   onClick,
 }: {
-  cert: (typeof certifications)[0]
-  index: number
-  onClick: () => void
+  cert: (typeof certifications)[0];
+  index: number;
+  onClick: () => void;
 }) {
-  const ref = useRef<HTMLButtonElement>(null)
-  const isInView = useInView(ref, { threshold: 0.1 })
+  const ref = useRef<HTMLButtonElement>(null);
+  const isInView = useInView(ref, { threshold: 0.1 });
 
   return (
     <button
@@ -190,9 +200,11 @@ function CertCard({
         />
       </div>
       <div className="p-3">
-        <p className="text-xs font-semibold text-foreground sm:text-sm">{cert.title}</p>
+        <p className="text-xs font-semibold text-foreground sm:text-sm">
+          {cert.title}
+        </p>
         <p className="text-xs text-muted-foreground">{cert.issuer}</p>
       </div>
     </button>
-  )
+  );
 }

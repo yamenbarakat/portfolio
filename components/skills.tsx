@@ -41,6 +41,9 @@ const skillCategories = [
       { name: "GitHub", color: "bg-foreground/10 text-foreground" },
       { name: "VS Code", color: "bg-blue-500/15 text-blue-400" },
       { name: "Postman", color: "bg-orange-500/15 text-orange-400" },
+      { name: "Codex", color: "bg-emerald-500/15 text-emerald-400" },
+      { name: "Claude", color: "bg-amber-500/15 text-amber-400" },
+      { name: "Gemini", color: "bg-indigo-500/15 text-indigo-400" },
     ],
   },
 ]
