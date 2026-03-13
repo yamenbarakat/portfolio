@@ -67,7 +67,7 @@ export function About() {
             <div className="relative">
               <div className="h-72 w-72 overflow-hidden rounded-[110px] border-2 border-border bg-card/50 md:h-80 md:w-80">
                 <Image
-                  src="/images/test.jpg"
+                  src="/images/profile.jpg"
                   alt="Profile photo"
                   fill
                   sizes="(min-width: 768px) 20rem, 18rem"
