@@ -114,8 +114,8 @@ export function Hero() {
             <span className="text-primary">Developer</span>
           </h1>
           <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Building modern, scalable web applications with clean code and
-            thoughtful user experiences. Passionate about turning ideas into
+            Building modern, scalable web applications with React.js & Next.js
+            and thoughtful user experiences. Passionate about turning ideas into
             elegant digital solutions.
           </p>
           <a

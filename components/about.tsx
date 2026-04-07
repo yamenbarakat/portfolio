@@ -39,14 +39,14 @@ export function About() {
             <p className="leading-relaxed text-muted-foreground">
               Hello! I&apos;m{" "}
               <span className="font-semibold text-foreground">
-                Yamen Barakat
+                Yamen Barakat{" "}
               </span>
-              , a passionate Full Stack Developer with a strong foundation in
-              modern web technologies. I love crafting clean, efficient, and
-              user-friendly applications that solve real-world problems. My
-              journey in development started with a curiosity for how things
-              work on the web, and it has since evolved into a full-blown
-              career.
+              from Syria but living in Oman, a passionate Full Stack Developer
+              with a strong foundation in modern web technologies. I love
+              crafting clean, efficient, and user-friendly applications that
+              solve real-world problems. My journey in development started with
+              a curiosity for how things work on the web, and it has since
+              evolved into a full-blown career.
             </p>
             <p className="leading-relaxed text-muted-foreground">
               I specialize in building end-to-end web applications using the

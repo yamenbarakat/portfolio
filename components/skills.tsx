@@ -31,6 +31,7 @@ const skillCategories = [
       { name: "Express.js", color: "bg-foreground/10 text-foreground" },
       { name: "MongoDB", color: "bg-emerald-500/15 text-emerald-400" },
       { name: "Mongoose", color: "bg-red-500/15 text-red-400" },
+      { name: "Supabase", color: "bg-emerald-500/15 text-emerald-400" },
       { name: "JWT Auth", color: "bg-amber-500/15 text-amber-400" },
     ],
   },

@@ -25,7 +25,7 @@ export function useInView(ref: React.RefObject<HTMLElement | null>, options: Use
       },
       {
         threshold: options.threshold ?? 0.15,
-        rootMargin: options.rootMargin ?? "0px 0px -80px 0px",
+        rootMargin: options.rootMargin ?? "0px 0px -24px 0px",
       }
     )
 

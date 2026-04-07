@@ -16,6 +16,11 @@ const certifications = [
     image: "/images/cert-1.png",
   },
   {
+    title: "Front End Developer Meta",
+    issuer: "Coursera",
+    image: "/images/front-end-meta.jpg",
+  },
+  {
     title: "Java Script Nano Degree",
     issuer: "Udacity",
     image: "/images/cert-2.png",
@@ -44,6 +49,16 @@ const certifications = [
     title: "Html, Css & Java Script",
     issuer: "Coursera",
     image: "/images/cert-7.png",
+  },
+  {
+    title: "Google AI",
+    issuer: "Coursera",
+    image: "/images/google-ai.png",
+  },
+  {
+    title: "Claude AI",
+    issuer: "Coursera",
+    image: "/images/claude-ai.png",
   },
 ];
 

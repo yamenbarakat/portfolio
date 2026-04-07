@@ -10,17 +10,17 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YB | Full Stack Developer",
+  title: "Yamen | Full Stack Developer Portfolio",
   description:
-    "Full Stack Developer portfolio showcasing modern web applications built with Next.js, React, Node.js, and more.",
+    "Professional portfolio of Yamen, a Full Stack Developer specializing in Next.js, React, and modern web apps.",
   keywords: [
+    "Yamen",
     "Full Stack Developer",
-    "Web Developer",
-    "React",
-    "Next.js",
-    "Node.js",
-    "Portfolio",
+    "Next.js Developer",
+    "Frontend Developer Syria",
+    "React Specialist",
   ],
+  authors: [{ name: "Yamen" }],
   verification: {
     google: "AUWQocc6IsHHaayif9En-t3AZvaOM7jxqCsVI0c4UG4",
   },

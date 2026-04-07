@@ -7,6 +7,13 @@ import { useInView } from "@/hooks/use-in-view";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const FILTER_PARAM = "pro";
+const FILTER_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "Full Stack", label: "Full Stack" },
+  { value: "Next.js", label: "Next.js" },
+  { value: "React.js", label: "React.js" },
+  { value: "Core Technologies", label: "Core Technologies" },
+] as const;
 
 const projects = [
   {
@@ -24,7 +31,7 @@ const projects = [
     ],
     liveUrl: "https://the-wild-oasis-inky-ten.vercel.app/",
     image: "/images/the-wild-oasis.png",
-    professionality: "advanced",
+    professionality: "Full Stack",
   },
   {
     title: "Exploring The Countries of The World",
@@ -33,7 +40,7 @@ const projects = [
     tech: ["Next.js", "API", "CSS Modules"],
     liveUrl: "https://rest-api-countries-next-six.vercel.app/",
     image: "/images/rest-api-countries.png",
-    professionality: "advanced",
+    professionality: "Next.js",
   },
   {
     title: "Tour Company Landing Page",
@@ -42,7 +49,7 @@ const projects = [
     tech: ["HTML", "Sass"],
     liveUrl: "https://natures-yamen.netlify.app/",
     image: "/images/natours.png",
-    professionality: "intermediate",
+    professionality: "Core Technologies",
   },
   {
     title: "React Quiz App",
@@ -51,7 +58,7 @@ const projects = [
     tech: ["React", "Tailwind CSS", "Vite"],
     liveUrl: "https://react-quiz-app-amber-six.vercel.app/",
     image: "/images/react-quiz-app.png",
-    professionality: "intermediate",
+    professionality: "React.js",
   },
   {
     title: "Rock Paper Scissors Game",
@@ -60,7 +67,7 @@ const projects = [
     tech: ["React", "Sass", "Vite"],
     liveUrl: "https://rock-paper-scissors-game-three.vercel.app/",
     image: "/images/rock-paper-scissors-game.png",
-    professionality: "intermediate",
+    professionality: "React.js",
   },
   {
     title: "Todo App",
@@ -69,7 +76,7 @@ const projects = [
     tech: ["React", "Tailwind CSS", "Vite"],
     liveUrl: "https://todo-app-phi-lemon-18.vercel.app/",
     image: "/images/todo-app.png",
-    professionality: "beginner",
+    professionality: "React.js",
   },
   {
     title: "Multi Steps Form",
@@ -84,7 +91,7 @@ const projects = [
     ],
     liveUrl: "https://multi-steps-form-with-react.vercel.app/",
     image: "/images/multisteps-form.png",
-    professionality: "intermediate",
+    professionality: "React.js",
   },
   {
     title: "Type Speed Game",
@@ -93,7 +100,7 @@ const projects = [
     tech: ["HTML", "CSS", "JavaScript"],
     liveUrl: "https://type-speed-game.vercel.app/",
     image: "/images/type-speed-game.png",
-    professionality: "beginner",
+    professionality: "Core Technologies",
   },
   {
     title: "Calculator App",
@@ -102,16 +109,7 @@ const projects = [
     tech: ["HTML", "CSS", "JavaScript"],
     liveUrl: "https://calculator-livid-rho-64.vercel.app/",
     image: "/images/calculator.png",
-    professionality: "intermediate",
-  },
-  {
-    title: "Showcases Landing Page",
-    description:
-      "A static, multi-section personal landing page featuring articles, a gallery, testimonials, team members, services, pricing plans, stats, and a contact form — all in a single-page layout.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    liveUrl: "https://yamen-one.vercel.app/",
-    image: "/images/show-app.png",
-    professionality: "beginner",
+    professionality: "Core Technologies",
   },
 ];
 
@@ -123,7 +121,10 @@ function ProjectCard({
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { threshold: 0.1 });
+  const isInView = useInView(ref, {
+    threshold: 0.05,
+    rootMargin: "0px 0px 48px 0px",
+  });
 
   return (
     <div
@@ -131,7 +132,7 @@ function ProjectCard({
       className={`group overflow-hidden rounded-xl border border-border bg-card transition-all duration-700 ease-out hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 ${
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
-      style={{ transitionDelay: `${index * 120}ms` }}
+      style={{ transitionDelay: `${index * 60}ms` }}
     >
       <div className="relative aspect-video overflow-hidden bg-secondary">
         <Image
@@ -177,13 +178,21 @@ function ProjectCard({
 
 export function Projects() {
   const headingRef = useRef<HTMLDivElement>(null);
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
+  const isHeadingInView = useInView(headingRef, {
+    threshold: 0.05,
+    rootMargin: "0px 0px 24px 0px",
+  });
 
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  const selectedFilter = searchParams.get(FILTER_PARAM) ?? "all";
+  const rawFilter = searchParams.get(FILTER_PARAM) ?? "all";
+  const selectedFilter = FILTER_OPTIONS.some(
+    (option) => option.value === rawFilter,
+  )
+    ? rawFilter
+    : "all";
 
   const filteredProjects = projects.filter((project) =>
     selectedFilter === "all"
@@ -206,9 +215,6 @@ export function Projects() {
     });
   };
 
-  const formatLabel = (value: string) =>
-    value === "all" ? "All" : `${value[0].toUpperCase()}${value.slice(1)}`;
-
   return (
     <section id="projects" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
@@ -228,24 +234,22 @@ export function Projects() {
 
         <div className="mb-10 flex flex-wrap items-center gap-3">
           <span className="text-sm font-medium text-muted-foreground">
-            Filter by Level:
+            Filter by Category:
           </span>
-          {(["all", "beginner", "intermediate", "advanced"] as const).map(
-            (level) => (
+          {FILTER_OPTIONS.map((option) => (
               <button
-                key={level}
+                key={option.value}
                 type="button"
-                onClick={() => setProfessionalFilter(level)}
+                onClick={() => setProfessionalFilter(option.value)}
                 className={`rounded-full px-4 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer ${
-                  selectedFilter === level
+                  selectedFilter === option.value
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted/20 text-muted-foreground hover:bg-primary/10 hover:text-primary"
                 }`}
               >
-                {formatLabel(level)}
+                {option.label}
               </button>
-            ),
-          )}
+            ))}
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2">
