@@ -17,9 +17,28 @@ const FILTER_OPTIONS = [
 
 const projects = [
   {
-    title: "The Wild Oasis",
+    title: "Alyasmin House Restaurant",
     description:
-      "A responsive cabin booking web app for The Wild Oasis resort. Guests can browse luxury cabins, filter by capacity, view cabin details, and book stays. Authenticated users can manage reservations and update their guest profile.",
+      "AlYasmin House is a bilingual restaurant web app for browsing a menu, placing delivery orders, reserving tables, and managing reservation/order history.",
+    tech: [
+      "Next.js",
+      "React.js",
+      "Supabase",
+      "Tailwind CSS",
+      "NextAuth",
+      "TypeScript",
+      "lucide-react",
+      "next-intl",
+    ],
+    liveUrl:
+      "https://alyasmin-restaurant-git-main-yamenbarakats-projects.vercel.app/en",
+    image: "/images/alyasmin-restaurant.png",
+    professionality: "Full Stack",
+  },
+  {
+    title: "The Golden Hotel",
+    description:
+      "A responsive hotel room booking web app for The Golden Hotel. Guests can browse luxury rooms and suites, filter by guest capacity, view room details, select stay dates, and create reservations. Signed-in guests can manage their reservations and update their profile from a protected account area.",
     tech: [
       "Next.js",
       "MongoDB",
@@ -30,7 +49,16 @@ const projects = [
       "date-fns",
     ],
     liveUrl: "https://the-wild-oasis-inky-ten.vercel.app/",
-    image: "/images/the-wild-oasis.png",
+    image: "/images/hotel.png",
+    professionality: "Full Stack",
+  },
+  {
+    title: "Restaurant Management Dashboard",
+    description:
+      "This project is connected to the same database used by the Alyasmin House project. It only fetches and displays data from that database. Data modification is intentionally disabled to avoid changing or affecting the live Alyasmin House project. In the current demo/client-view mode, it works as a read-only dashboard connected to real data.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Recharts"],
+    liveUrl: "https://restaurant-management-dashboard-phi.vercel.app/dashboard",
+    image: "/images/dashboard.png",
     professionality: "Full Stack",
   },
   {
@@ -237,19 +265,19 @@ export function Projects() {
             Filter by Category:
           </span>
           {FILTER_OPTIONS.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => setProfessionalFilter(option.value)}
-                className={`rounded-full px-4 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer ${
-                  selectedFilter === option.value
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted/20 text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => setProfessionalFilter(option.value)}
+              className={`rounded-full px-4 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer ${
+                selectedFilter === option.value
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted/20 text-muted-foreground hover:bg-primary/10 hover:text-primary"
+              }`}
+            >
+              {option.label}
+            </button>
+          ))}
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2">
