@@ -31,7 +31,7 @@ const projects = [
       "next-intl",
     ],
     liveUrl:
-      "https://alyasmin-restaurant-git-main-yamenbarakats-projects.vercel.app/en",
+      "https://alyasmin-restaurant.vercel.app/en",
     image: "/images/alyasmin-restaurant.png",
     professionality: "Full Stack",
   },
