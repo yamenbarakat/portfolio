@@ -129,7 +129,7 @@ export function Hero() {
         </div>
 
         <div
-          className={`relative w-full max-w-sm shrink-0 transition-all duration-1000 ease-out delay-200 sm:max-w-md md:max-w-lg lg:max-w-xl ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`relative hidden w-[min(515px,100%)] shrink-0 transition-all duration-1000 ease-out delay-200 md:block ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <Image
             src="/images/photo_transparent.png"
@@ -137,7 +137,7 @@ export function Hero() {
             width={515}
             height={800}
             priority
-            className="mx-auto h-auto max-w-[515px] object-contain drop-shadow-2xl"
+            className="h-auto max-h-[min(800px,70vh)] w-full max-w-[515px] object-contain drop-shadow-2xl"
           />
         </div>
       </div>
