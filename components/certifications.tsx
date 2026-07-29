@@ -8,8 +8,8 @@ import {
   FiChevronRight as ChevronRight,
 } from "react-icons/fi";
 import { useInView } from "@/hooks/use-in-view";
-import { useDictionary } from "@/components/dictionary-provider";
 import type { Dictionary } from "@/get-dictionary";
+import type { Locale } from "@/i18n-config";
 
 type CertKey = keyof Dictionary["certifications"]["items"];
 
@@ -70,8 +70,13 @@ const certifications: {
   },
 ];
 
-export function Certifications() {
-  const { dictionary, locale } = useDictionary();
+export function Certifications({
+  dictionary,
+  locale,
+}: {
+  dictionary: Dictionary;
+  locale: Locale;
+}) {
   const headingRef = useRef<HTMLDivElement>(null);
   const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);

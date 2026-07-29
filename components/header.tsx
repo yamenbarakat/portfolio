@@ -2,11 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { FiMenu as Menu, FiX as X } from "react-icons/fi";
-import { useDictionary } from "@/components/dictionary-provider";
 import { LanguageToggle } from "@/components/language-toggle";
+import type { Dictionary } from "@/get-dictionary";
+import type { Locale } from "@/i18n-config";
 
-export function Header() {
-  const { dictionary } = useDictionary();
+export function Header({
+  dictionary,
+  locale,
+}: {
+  dictionary: Dictionary;
+  locale: Locale;
+}) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -55,11 +61,11 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <LanguageToggle />
+          <LanguageToggle dictionary={dictionary} locale={locale} />
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
-          <LanguageToggle />
+          <LanguageToggle dictionary={dictionary} locale={locale} />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-foreground"

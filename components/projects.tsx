@@ -1,11 +1,7 @@
-"use client";
-
-import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FiExternalLink as ExternalLink } from "react-icons/fi";
-import { useInView } from "@/hooks/use-in-view";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDictionary } from "@/components/dictionary-provider";
+import { Reveal } from "@/components/reveal";
 import type { Dictionary } from "@/get-dictionary";
 
 const FILTER_PARAM = "pro";
@@ -134,19 +130,12 @@ function ProjectCard({
   description: string;
   viewLive: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, {
-    threshold: 0.05,
-    rootMargin: "0px 0px 48px 0px",
-  });
-
   return (
-    <div
-      ref={ref}
-      className={`group overflow-hidden rounded-xl border border-border bg-card transition-all duration-700 ease-out hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 ${
-        isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{ transitionDelay: `${index * 60}ms` }}
+    <Reveal
+      className="group overflow-hidden rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+      delay={index * 60}
+      threshold={0.05}
+      rootMargin="0px 0px 48px 0px"
     >
       <div className="relative aspect-video overflow-hidden bg-secondary">
         <Image
@@ -184,22 +173,17 @@ function ProjectCard({
           <ExternalLink className="h-3.5 w-3.5" />
         </a>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
-export function Projects() {
-  const { dictionary } = useDictionary();
-  const headingRef = useRef<HTMLDivElement>(null);
-  const isHeadingInView = useInView(headingRef, {
-    threshold: 0.05,
-    rootMargin: "0px 0px 24px 0px",
-  });
-
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
+export function Projects({
+  dictionary,
+  selectedFilter: requestedFilter,
+}: {
+  dictionary: Dictionary;
+  selectedFilter: string;
+}) {
   const filterOptions = [
     { value: "all", label: dictionary.projects.filters.all },
     { value: "Full Stack", label: dictionary.projects.filters.fullStack },
@@ -208,11 +192,10 @@ export function Projects() {
     { value: "Core Technologies", label: dictionary.projects.filters.core },
   ] as const;
 
-  const rawFilter = searchParams.get(FILTER_PARAM) ?? "all";
   const selectedFilter = filterOptions.some(
-    (option) => option.value === rawFilter,
+    (option) => option.value === requestedFilter,
   )
-    ? rawFilter
+    ? requestedFilter
     : "all";
 
   const filteredProjects = projects.filter((project) =>
@@ -221,31 +204,13 @@ export function Projects() {
       : project.professionality === selectedFilter,
   );
 
-  const setProfessionalFilter = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (value === "all") {
-      params.delete(FILTER_PARAM);
-    } else {
-      params.set(FILTER_PARAM, value);
-    }
-
-    const search = params.toString();
-    router.replace(`${pathname}${search ? `?${search}` : ""}`, {
-      scroll: false,
-    });
-  };
-
   return (
     <section id="projects" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          ref={headingRef}
-          className={`mb-16 transition-all duration-700 ease-out ${
-            isHeadingInView
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
+        <Reveal
+          className="mb-16"
+          threshold={0.05}
+          rootMargin="0px 0px 24px 0px"
         >
           <p className="mb-2 font-mono text-sm text-primary">
             {dictionary.projects.eyebrow}
@@ -253,17 +218,21 @@ export function Projects() {
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
             {dictionary.projects.title}
           </h2>
-        </div>
+        </Reveal>
 
         <div className="mb-10 flex flex-wrap items-center gap-3">
           <span className="text-sm font-medium text-muted-foreground">
             {dictionary.projects.filterLabel}
           </span>
           {filterOptions.map((option) => (
-            <button
+            <Link
               key={option.value}
-              type="button"
-              onClick={() => setProfessionalFilter(option.value)}
+              href={
+                option.value === "all"
+                  ? { query: {} }
+                  : { query: { [FILTER_PARAM]: option.value } }
+              }
+              scroll={false}
               className={`rounded-full px-4 py-1 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer ${
                 selectedFilter === option.value
                   ? "bg-primary text-primary-foreground"
@@ -271,7 +240,7 @@ export function Projects() {
               }`}
             >
               {option.label}
-            </button>
+            </Link>
           ))}
         </div>
 

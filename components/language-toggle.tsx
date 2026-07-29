@@ -3,11 +3,16 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { useDictionary } from "@/components/dictionary-provider";
+import type { Dictionary } from "@/get-dictionary";
 import type { Locale } from "@/i18n-config";
 
-function LanguageToggleLink() {
-  const { locale, dictionary } = useDictionary();
+function LanguageToggleLink({
+  locale,
+  dictionary,
+}: {
+  locale: Locale;
+  dictionary: Dictionary;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -35,7 +40,13 @@ function LanguageToggleLink() {
   );
 }
 
-export function LanguageToggle() {
+export function LanguageToggle({
+  locale,
+  dictionary,
+}: {
+  locale: Locale;
+  dictionary: Dictionary;
+}) {
   return (
     <Suspense
       fallback={
@@ -44,7 +55,7 @@ export function LanguageToggle() {
         </span>
       }
     >
-      <LanguageToggleLink />
+      <LanguageToggleLink locale={locale} dictionary={dictionary} />
     </Suspense>
   );
 }

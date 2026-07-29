@@ -1,8 +1,4 @@
-"use client";
-
-import { useRef } from "react";
-import { useInView } from "@/hooks/use-in-view";
-import { useDictionary } from "@/components/dictionary-provider";
+import { Reveal } from "@/components/reveal";
 import type { Dictionary } from "@/get-dictionary";
 
 type CategoryKey = keyof Dictionary["skills"]["categories"];
@@ -56,28 +52,21 @@ const skillCategories: {
   },
 ];
 
-export function Skills() {
-  const { dictionary } = useDictionary();
-  const headingRef = useRef<HTMLDivElement>(null);
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
-
+export function Skills({ dictionary }: { dictionary: Dictionary }) {
   return (
     <section
       id="skills"
       className="border-t border-border bg-card/50 py-24 md:py-32"
     >
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          ref={headingRef}
-          className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <Reveal className="mb-16">
           <p className="mb-2 font-mono text-sm text-primary">
             {dictionary.skills.eyebrow}
           </p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
             {dictionary.skills.title}
           </h2>
-        </div>
+        </Reveal>
 
         <div className="grid gap-10 sm:grid-cols-2">
           {skillCategories.map((category, catIdx) => (
@@ -103,15 +92,8 @@ function SkillCategory({
   skills: { name: string; color: string }[];
   index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { threshold: 0.1 });
-
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-      style={{ transitionDelay: `${index * 120}ms` }}
-    >
+    <Reveal delay={index * 120}>
       <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
         {title}
       </h3>
@@ -125,6 +107,6 @@ function SkillCategory({
           </span>
         ))}
       </div>
-    </div>
+    </Reveal>
   );
 }

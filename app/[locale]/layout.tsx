@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { i18n, isLocale, type Locale } from "@/i18n-config";
 import { getDictionary } from "@/get-dictionary";
-import { DictionaryProvider } from "@/components/dictionary-provider";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -68,7 +67,6 @@ export default async function LocaleLayout({
   }
 
   const locale = localeParam;
-  const dictionary = await getDictionary(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
@@ -76,9 +74,7 @@ export default async function LocaleLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${cairo.variable} ${locale === "ar" ? "font-arabic" : "font-sans"} antialiased`}
       >
-        <DictionaryProvider dictionary={dictionary} locale={locale}>
-          {children}
-        </DictionaryProvider>
+        {children}
         <Analytics />
       </body>
     </html>

@@ -1,8 +1,6 @@
-"use client";
-
 import { FiGithub as GithubIcon, FiMail as Mail } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { useDictionary } from "@/components/dictionary-provider";
+import type { Dictionary } from "@/get-dictionary";
 
 const socialLinks = [
   { href: "mailto:yamen.barakat.1994@gmail.com", icon: Mail, label: "Email" },
@@ -14,9 +12,7 @@ const socialLinks = [
   { href: "https://wa.me/963987319420", icon: FaWhatsapp, label: "WhatsApp" },
 ];
 
-export function Footer() {
-  const { dictionary } = useDictionary();
-
+export function Footer({ dictionary }: { dictionary: Dictionary }) {
   return (
     <footer className="border-t border-border py-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 sm:flex-row sm:justify-between">
