@@ -1,0 +1,143 @@
+{
+  "meta": {
+    "title": "Yamen | Full Stack Developer Portfolio",
+    "description": "Professional portfolio of Yamen, a Full Stack Developer specializing in Next.js, React, and modern web apps."
+  },
+  "nav": {
+    "projects": "Projects",
+    "skills": "Skills",
+    "certifications": "Certifications",
+    "about": "About",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchToArabic": "العربية",
+    "switchToEnglish": "English"
+  },
+  "hero": {
+    "eyebrow": "Welcome to my portfolio",
+    "titleBefore": "I am Yamen Barakat",
+    "titleHighlight": "Full Stack Developer",
+    "description": "Building modern, scalable web applications with React.js & Next.js and thoughtful user experiences. Passionate about turning ideas into elegant digital solutions.",
+    "cta": "View My Work"
+  },
+  "projects": {
+    "eyebrow": "Featured Work",
+    "title": "Some of My Projects",
+    "filterLabel": "Filter by Category:",
+    "viewLive": "View Live",
+    "loading": "Loading projects…",
+    "filters": {
+      "all": "All",
+      "fullStack": "Full Stack",
+      "nextjs": "Next.js",
+      "reactjs": "React.js",
+      "core": "Core Technologies"
+    },
+    "items": {
+      "alyasmin": {
+        "title": "Alyasmin House Restaurant",
+        "description": "AlYasmin House is a bilingual restaurant web app for browsing a menu, placing delivery orders, reserving tables, and managing reservation/order history."
+      },
+      "hotel": {
+        "title": "The Golden Hotel",
+        "description": "A responsive hotel room booking web app for The Golden Hotel. Guests can browse luxury rooms and suites, filter by guest capacity, view room details, select stay dates, and create reservations. Signed-in guests can manage their reservations and update their profile from a protected account area."
+      },
+      "dashboard": {
+        "title": "Restaurant Management Dashboard",
+        "description": "This project is connected to the same database used by the Alyasmin House project. It only fetches and displays data from that database. Data modification is intentionally disabled to avoid changing or affecting the live Alyasmin House project. In the current demo/client-view mode, it works as a read-only dashboard connected to real data."
+      },
+      "countries": {
+        "title": "Exploring The Countries of The World",
+        "description": "An app that explores country data from the REST Countries API. Browse a full list of countries, search by name, filter by region, and open a country page to see detailed information."
+      },
+      "natours": {
+        "title": "Tour Company Landing Page",
+        "description": "A responsive tour company landing page built with HTML, CSS, and Sass. Showcases advanced CSS animations, 3D card flips, a custom navigation menu, and a popup modal — all without JavaScript."
+      },
+      "quiz": {
+        "title": "React Quiz App",
+        "description": "This app tests React knowledge through 15 multiple-choice questions, tracks score in real time, includes a countdown timer, and saves key progress values in localStorage."
+      },
+      "rps": {
+        "title": "Rock Paper Scissors Game",
+        "description": "An interactive Rock Paper Scissors game with score tracking. Built with React and Sass, it features clean UI, smooth interactions, and persistent score state starting at 12."
+      },
+      "todo": {
+        "title": "Todo App",
+        "description": "A clean, responsive React todo app with theme switching and persistent state. Focuses on fast interactions, mobile-first layout, and simple task management."
+      },
+      "multistep": {
+        "title": "Multi Steps Form",
+        "description": "A responsive, accessible multi-step subscription form built with React and Redux Toolkit. Users progress through personal info, plan selection, add-ons, and a final summary. State persists between steps and validation is handled client-side."
+      },
+      "typeSpeed": {
+        "title": "Type Speed Game",
+        "description": "A lightweight, browser-based typing speed game. It presents a random text prompt, tracks typing accuracy in real time, and reports your words-per-minute (WPM) when you finish."
+      },
+      "calculator": {
+        "title": "Calculator App",
+        "description": "A clean browser-based calculator app supporting basic arithmetic operations. Built with vanilla JavaScript, it handles operator chaining, decimal input, and keyboard-friendly interactions."
+      }
+    }
+  },
+  "skills": {
+    "eyebrow": "Technical Expertise",
+    "title": "Technologies I Work With",
+    "categories": {
+      "core": "Core Technologies",
+      "frontend": "Frontend Development",
+      "backend": "Backend Development",
+      "tools": "Tools & Workflow"
+    }
+  },
+  "certifications": {
+    "eyebrow": "Credentials",
+    "title": "My Certifications",
+    "close": "Close lightbox",
+    "previous": "Previous certificate",
+    "next": "Next certificate",
+    "view": "View certificate",
+    "items": {
+      "frontendNano": "Front End Developer Nano Degree",
+      "frontendMeta": "Front End Developer Meta",
+      "jsNano": "Java Script Nano Degree",
+      "reactNext": "React.js & Next.js",
+      "cssSass": "Advanced Css & Sass",
+      "htmlCss": "Html & Css",
+      "webDev": "Web Development",
+      "htmlCssJs": "Html, Css & Java Script",
+      "googleAi": "Google AI",
+      "claudeAi": "Claude AI"
+    }
+  },
+  "about": {
+    "eyebrow": "Get to Know Me",
+    "title": "About Me",
+    "p1Before": "Hello! I'm",
+    "p1Name": "Yamen Barakat",
+    "p1After": "from Syria but living in Oman, a passionate Full Stack Developer with a strong foundation in modern web technologies. I love crafting clean, efficient, and user-friendly applications that solve real-world problems. My journey in development started with a curiosity for how things work on the web, and it has since evolved into a full-blown career.",
+    "p2": "I specialize in building end-to-end web applications using the MERN stack and Next.js. From designing responsive frontends with React and Tailwind CSS to architecting robust backends with Node.js and MongoDB, I enjoy every step of the development process.",
+    "p3": "When I'm not coding, you'll find me playing video games or exploring new technologies. I believe in continuous learning and strive to stay ahead in this ever-evolving field.",
+    "imageAlt": "Profile photo"
+  },
+  "contact": {
+    "eyebrow": "Say Hello",
+    "title": "Get In Touch",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "message": "Message",
+    "messagePlaceholder": "Your message...",
+    "sending": "Sending...",
+    "sent": "Message Sent!",
+    "failed": "Failed, Try Again",
+    "send": "Send Message",
+    "connect": "Connect With Me",
+    "connectText": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of something great. Feel free to reach out!"
+  },
+  "footer": {
+    "rights": "YB. All rights reserved."
+  }
+}

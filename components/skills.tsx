@@ -1,11 +1,18 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import { useInView } from "@/hooks/use-in-view"
+import { useRef } from "react";
+import { useInView } from "@/hooks/use-in-view";
+import { useDictionary } from "@/components/dictionary-provider";
+import type { Dictionary } from "@/get-dictionary";
 
-const skillCategories = [
+type CategoryKey = keyof Dictionary["skills"]["categories"];
+
+const skillCategories: {
+  key: CategoryKey;
+  skills: { name: string; color: string }[];
+}[] = [
   {
-    title: "Core Technologies",
+    key: "core",
     skills: [
       { name: "HTML", color: "bg-orange-500/15 text-orange-400" },
       { name: "CSS", color: "bg-blue-500/15 text-blue-400" },
@@ -14,7 +21,7 @@ const skillCategories = [
     ],
   },
   {
-    title: "Frontend Development",
+    key: "frontend",
     skills: [
       { name: "React.js", color: "bg-cyan-500/15 text-cyan-400" },
       { name: "Next.js", color: "bg-foreground/10 text-foreground" },
@@ -25,7 +32,7 @@ const skillCategories = [
     ],
   },
   {
-    title: "Backend Development",
+    key: "backend",
     skills: [
       { name: "Node.js", color: "bg-green-500/15 text-green-400" },
       { name: "Express.js", color: "bg-foreground/10 text-foreground" },
@@ -36,7 +43,7 @@ const skillCategories = [
     ],
   },
   {
-    title: "Tools & Workflow",
+    key: "tools",
     skills: [
       { name: "Git", color: "bg-orange-500/15 text-orange-400" },
       { name: "GitHub", color: "bg-foreground/10 text-foreground" },
@@ -47,44 +54,57 @@ const skillCategories = [
       { name: "Gemini", color: "bg-indigo-500/15 text-indigo-400" },
     ],
   },
-]
+];
 
 export function Skills() {
-  const headingRef = useRef<HTMLDivElement>(null)
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 })
+  const { dictionary } = useDictionary();
+  const headingRef = useRef<HTMLDivElement>(null);
+  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
 
   return (
-    <section id="skills" className="border-t border-border bg-card/50 py-24 md:py-32">
+    <section
+      id="skills"
+      className="border-t border-border bg-card/50 py-24 md:py-32"
+    >
       <div className="mx-auto max-w-6xl px-6">
         <div
           ref={headingRef}
           className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <p className="mb-2 font-mono text-sm text-primary">Technical Expertise</p>
+          <p className="mb-2 font-mono text-sm text-primary">
+            {dictionary.skills.eyebrow}
+          </p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Technologies I Work With
+            {dictionary.skills.title}
           </h2>
         </div>
 
         <div className="grid gap-10 sm:grid-cols-2">
           {skillCategories.map((category, catIdx) => (
-            <SkillCategory key={category.title} category={category} index={catIdx} />
+            <SkillCategory
+              key={category.key}
+              title={dictionary.skills.categories[category.key]}
+              skills={category.skills}
+              index={catIdx}
+            />
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 function SkillCategory({
-  category,
+  title,
+  skills,
   index,
 }: {
-  category: (typeof skillCategories)[0]
-  index: number
+  title: string;
+  skills: { name: string; color: string }[];
+  index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { threshold: 0.1 })
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { threshold: 0.1 });
 
   return (
     <div
@@ -93,10 +113,10 @@ function SkillCategory({
       style={{ transitionDelay: `${index * 120}ms` }}
     >
       <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
-        {category.title}
+        {title}
       </h3>
       <div className="flex flex-wrap gap-2.5">
-        {category.skills.map((skill) => (
+        {skills.map((skill) => (
           <span
             key={skill.name}
             className={`rounded-full px-4 py-2 text-sm font-medium transition-transform hover:scale-105 ${skill.color}`}
@@ -106,5 +126,5 @@ function SkillCategory({
         ))}
       </div>
     </div>
-  )
+  );
 }

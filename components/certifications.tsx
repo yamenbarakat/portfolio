@@ -8,64 +8,74 @@ import {
   FiChevronRight as ChevronRight,
 } from "react-icons/fi";
 import { useInView } from "@/hooks/use-in-view";
+import { useDictionary } from "@/components/dictionary-provider";
+import type { Dictionary } from "@/get-dictionary";
 
-const certifications = [
+type CertKey = keyof Dictionary["certifications"]["items"];
+
+const certifications: {
+  key: CertKey;
+  issuer: string;
+  image: string;
+}[] = [
   {
-    title: "Front End Developer Nano Degree",
+    key: "frontendNano",
     issuer: "Udacity",
     image: "/images/cert-1.png",
   },
   {
-    title: "Front End Developer Meta",
+    key: "frontendMeta",
     issuer: "Coursera",
     image: "/images/front-end-meta.jpg",
   },
   {
-    title: "Java Script Nano Degree",
+    key: "jsNano",
     issuer: "Udacity",
     image: "/images/cert-2.png",
   },
   {
-    title: "React.js & Next.js",
+    key: "reactNext",
     issuer: "Udemy",
     image: "/images/cert-3.png",
   },
   {
-    title: "Advanced Css & Sass",
+    key: "cssSass",
     issuer: "Udemy",
     image: "/images/cert-4.png",
   },
   {
-    title: "Html & Css",
+    key: "htmlCss",
     issuer: "Udemy",
     image: "/images/cert-5.jpg",
   },
   {
-    title: "Web Development",
+    key: "webDev",
     issuer: "Coursera",
     image: "/images/cert-6.png",
   },
   {
-    title: "Html, Css & Java Script",
+    key: "htmlCssJs",
     issuer: "Coursera",
     image: "/images/cert-7.png",
   },
   {
-    title: "Google AI",
+    key: "googleAi",
     issuer: "Coursera",
     image: "/images/google-ai.png",
   },
   {
-    title: "Claude AI",
+    key: "claudeAi",
     issuer: "Coursera",
     image: "/images/claude-ai.png",
   },
 ];
 
 export function Certifications() {
+  const { dictionary, locale } = useDictionary();
   const headingRef = useRef<HTMLDivElement>(null);
   const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const isRtl = locale === "ar";
 
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
@@ -88,12 +98,17 @@ export function Certifications() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") goNext();
-      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") (isRtl ? goPrev : goNext)();
+      if (e.key === "ArrowLeft") (isRtl ? goNext : goPrev)();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, closeLightbox, goNext, goPrev]);
+  }, [lightboxIndex, closeLightbox, goNext, goPrev, isRtl]);
+
+  const activeTitle =
+    lightboxIndex !== null
+      ? dictionary.certifications.items[certifications[lightboxIndex].key]
+      : "";
 
   return (
     <section id="certifications" className="py-24 md:py-32">
@@ -102,37 +117,41 @@ export function Certifications() {
           ref={headingRef}
           className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <p className="mb-2 font-mono text-sm text-primary">Credentials</p>
+          <p className="mb-2 font-mono text-sm text-primary">
+            {dictionary.certifications.eyebrow}
+          </p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            My Certifications
+            {dictionary.certifications.title}
           </h2>
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6">
           {certifications.map((cert, i) => (
             <CertCard
-              key={cert.title}
-              cert={cert}
+              key={cert.key}
+              title={dictionary.certifications.items[cert.key]}
+              issuer={cert.issuer}
+              image={cert.image}
               index={i}
+              viewLabel={dictionary.certifications.view}
               onClick={() => openLightbox(i)}
             />
           ))}
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       {lightboxIndex !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label={`Certificate: ${certifications[lightboxIndex].title}`}
+          aria-label={`${dictionary.certifications.view}: ${activeTitle}`}
         >
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80"
-            aria-label="Close lightbox"
+            className="absolute top-6 end-6 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80"
+            aria-label={dictionary.certifications.close}
           >
             <X className="h-6 w-6" />
           </button>
@@ -142,10 +161,14 @@ export function Certifications() {
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute left-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:left-8"
-            aria-label="Previous certificate"
+            className="absolute start-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:start-8"
+            aria-label={dictionary.certifications.previous}
           >
-            <ChevronLeft className="h-6 w-6" />
+            {isRtl ? (
+              <ChevronRight className="h-6 w-6" />
+            ) : (
+              <ChevronLeft className="h-6 w-6" />
+            )}
           </button>
 
           <div
@@ -154,7 +177,7 @@ export function Certifications() {
           >
             <Image
               src={certifications[lightboxIndex].image}
-              alt={certifications[lightboxIndex].title}
+              alt={activeTitle}
               width={1200}
               height={900}
               sizes="90vw"
@@ -162,7 +185,7 @@ export function Certifications() {
             />
             <div className="bg-card p-4 text-center">
               <p className="text-sm font-semibold text-foreground">
-                {certifications[lightboxIndex].title}
+                {activeTitle}
               </p>
               <p className="text-xs text-muted-foreground">
                 {certifications[lightboxIndex].issuer}
@@ -175,10 +198,14 @@ export function Certifications() {
               e.stopPropagation();
               goNext();
             }}
-            className="absolute right-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:right-8"
-            aria-label="Next certificate"
+            className="absolute end-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:end-8"
+            aria-label={dictionary.certifications.next}
           >
-            <ChevronRight className="h-6 w-6" />
+            {isRtl ? (
+              <ChevronLeft className="h-6 w-6" />
+            ) : (
+              <ChevronRight className="h-6 w-6" />
+            )}
           </button>
         </div>
       )}
@@ -187,12 +214,18 @@ export function Certifications() {
 }
 
 function CertCard({
-  cert,
+  title,
+  issuer,
+  image,
   index,
+  viewLabel,
   onClick,
 }: {
-  cert: (typeof certifications)[0];
+  title: string;
+  issuer: string;
+  image: string;
   index: number;
+  viewLabel: string;
   onClick: () => void;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -202,16 +235,16 @@ function CertCard({
     <button
       ref={ref}
       onClick={onClick}
-      className={`group cursor-pointer overflow-hidden rounded-xl border border-border bg-card text-left transition-all duration-700 ease-out hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 ${
+      className={`group cursor-pointer overflow-hidden rounded-xl border border-border bg-card text-start transition-all duration-700 ease-out hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 ${
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
-      aria-label={`View certificate: ${cert.title}`}
+      aria-label={`${viewLabel}: ${title}`}
     >
       <div className="aspect-[4/3] overflow-hidden bg-secondary">
         <Image
-          src={cert.image}
-          alt={cert.title}
+          src={image}
+          alt={title}
           width={800}
           height={600}
           sizes="(min-width: 768px) 33vw, 50vw"
@@ -220,9 +253,9 @@ function CertCard({
       </div>
       <div className="p-3">
         <p className="text-xs font-semibold text-foreground sm:text-sm">
-          {cert.title}
+          {title}
         </p>
-        <p className="text-xs text-muted-foreground">{cert.issuer}</p>
+        <p className="text-xs text-muted-foreground">{issuer}</p>
       </div>
     </button>
   );

@@ -9,8 +9,10 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import { useInView } from "@/hooks/use-in-view";
 import { sendContactEmail } from "@/app/actions/contact";
+import { useDictionary } from "@/components/dictionary-provider";
 
 export function Contact() {
+  const { dictionary } = useDictionary();
   const headingRef = useRef<HTMLDivElement>(null);
   const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
   const formRef = useRef<HTMLDivElement>(null);
@@ -42,10 +44,10 @@ export function Contact() {
   };
 
   const getButtonLabel = () => {
-    if (status === "loading") return "Sending...";
-    if (status === "success") return "Message Sent!";
-    if (status === "error") return "Failed, Try Again";
-    return "Send Message";
+    if (status === "loading") return dictionary.contact.sending;
+    if (status === "success") return dictionary.contact.sent;
+    if (status === "error") return dictionary.contact.failed;
+    return dictionary.contact.send;
   };
 
   return (
@@ -55,9 +57,11 @@ export function Contact() {
           ref={headingRef}
           className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <p className="mb-2 font-mono text-sm text-primary">Say Hello</p>
+          <p className="mb-2 font-mono text-sm text-primary">
+            {dictionary.contact.eyebrow}
+          </p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            Get In Touch
+            {dictionary.contact.title}
           </h2>
         </div>
 
@@ -75,7 +79,7 @@ export function Contact() {
                 htmlFor="name"
                 className="mb-2 block text-sm font-medium text-foreground"
               >
-                Name
+                {dictionary.contact.name}
               </label>
               <input
                 type="text"
@@ -85,7 +89,7 @@ export function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                placeholder="Your name"
+                placeholder={dictionary.contact.namePlaceholder}
                 className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
@@ -94,7 +98,7 @@ export function Contact() {
                 htmlFor="email"
                 className="mb-2 block text-sm font-medium text-foreground"
               >
-                Email
+                {dictionary.contact.email}
               </label>
               <input
                 type="email"
@@ -104,7 +108,7 @@ export function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                placeholder="your@email.com"
+                placeholder={dictionary.contact.emailPlaceholder}
                 className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
@@ -113,7 +117,7 @@ export function Contact() {
                 htmlFor="message"
                 className="mb-2 block text-sm font-medium text-foreground"
               >
-                Message
+                {dictionary.contact.message}
               </label>
               <textarea
                 id="message"
@@ -123,7 +127,7 @@ export function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
                 }
-                placeholder="Your message..."
+                placeholder={dictionary.contact.messagePlaceholder}
                 className="w-full resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
@@ -144,16 +148,13 @@ export function Contact() {
             </button>
           </form>
 
-          {/* Contact Info — unchanged */}
           <div className="flex flex-col justify-center gap-8 md:w-80">
             <div>
               <h3 className="mb-4 text-sm font-semibold tracking-wider text-muted-foreground uppercase">
-                Connect With Me
+                {dictionary.contact.connect}
               </h3>
               <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                I&apos;m always open to discussing new projects, creative ideas,
-                or opportunities to be part of something great. Feel free to
-                reach out!
+                {dictionary.contact.connectText}
               </p>
             </div>
             <div className="space-y-4">

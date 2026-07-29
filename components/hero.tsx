@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { FiArrowDown as ArrowDown } from "react-icons/fi";
+import { useDictionary } from "@/components/dictionary-provider";
 
 export function Hero() {
+  const { dictionary } = useDictionary();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -36,7 +39,6 @@ export function Hero() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Create particles
     for (let i = 0; i < 60; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -66,7 +68,6 @@ export function Hero() {
         ctx.fill();
       });
 
-      // Draw connections
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -97,38 +98,50 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen items-center overflow-hidden"
     >
       <canvas ref={canvasRef} className="absolute inset-0" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col items-center gap-4 px-6 py-28 md:flex-row md:items-center md:justify-between md:gap-6 md:py-0">
         <div
-          className={`transition-all duration-1000 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`w-full flex-1 text-center transition-all duration-1000 ease-out md:text-start ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <p className="mb-4 font-mono text-sm tracking-widest text-primary uppercase">
-            Welcome to my portfolio
+            {dictionary.hero.eyebrow}
           </p>
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-7xl text-balance">
-            I am a Full Stack
+          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance">
+            {dictionary.hero.titleBefore}
             <br />
-            <span className="text-primary">Developer</span>
+            <span className="text-primary">
+              {dictionary.hero.titleHighlight}
+            </span>
           </h1>
-          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Building modern, scalable web applications with React.js & Next.js
-            and thoughtful user experiences. Passionate about turning ideas into
-            elegant digital solutions.
+          <p className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+            {dictionary.hero.description}
           </p>
           <a
             href="#projects"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
           >
-            View My Work
+            {dictionary.hero.cta}
             <ArrowDown className="h-4 w-4" />
           </a>
         </div>
+
+        <div
+          className={`relative w-full max-w-sm shrink-0 transition-all duration-1000 ease-out delay-200 sm:max-w-md md:max-w-lg lg:max-w-xl ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
+          <Image
+            src="/images/photo_transparent.png"
+            alt={dictionary.about.imageAlt}
+            width={515}
+            height={800}
+            priority
+            className="mx-auto h-auto max-w-[515px] object-contain drop-shadow-2xl"
+          />
+        </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <div className="flex h-10 w-6 items-start justify-center rounded-full border-2 border-muted-foreground/30 p-1.5">
           <div className="h-2 w-1 rounded-full bg-primary" />

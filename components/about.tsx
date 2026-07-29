@@ -3,8 +3,10 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
+import { useDictionary } from "@/components/dictionary-provider";
 
 export function About() {
+  const { dictionary } = useDictionary();
   const headingRef = useRef<HTMLDivElement>(null);
   const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
   const contentRef = useRef<HTMLDivElement>(null);
@@ -20,9 +22,11 @@ export function About() {
           ref={headingRef}
           className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          <p className="mb-2 font-mono text-sm text-primary">Get to Know Me</p>
+          <p className="mb-2 font-mono text-sm text-primary">
+            {dictionary.about.eyebrow}
+          </p>
           <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            About Me
+            {dictionary.about.title}
           </h2>
         </div>
 
@@ -34,44 +38,31 @@ export function About() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Text Content */}
           <div className="flex-1 space-y-5">
             <p className="leading-relaxed text-muted-foreground">
-              Hello! I&apos;m{" "}
+              {dictionary.about.p1Before}{" "}
               <span className="font-semibold text-foreground">
-                Yamen Barakat{" "}
+                {dictionary.about.p1Name}{" "}
               </span>
-              from Syria but living in Oman, a passionate Full Stack Developer
-              with a strong foundation in modern web technologies. I love
-              crafting clean, efficient, and user-friendly applications that
-              solve real-world problems. My journey in development started with
-              a curiosity for how things work on the web, and it has since
-              evolved into a full-blown career.
+              {dictionary.about.p1After}
             </p>
             <p className="leading-relaxed text-muted-foreground">
-              I specialize in building end-to-end web applications using the
-              MERN stack and Next.js. From designing responsive frontends with
-              React and Tailwind CSS to architecting robust backends with
-              Node.js and MongoDB, I enjoy every step of the development
-              process.
+              {dictionary.about.p2}
             </p>
             <p className="leading-relaxed text-muted-foreground">
-              When I&apos;m not coding, you&apos;ll find me playing video games
-              or exploring new technologies. I believe in continuous learning
-              and strive to stay ahead in this ever-evolving field.
+              {dictionary.about.p3}
             </p>
           </div>
 
-          {/* Profile Image */}
           <div className="shrink-0">
             <div className="relative">
-              <div className="h-72 w-72 overflow-hidden rounded-[110px] border-2 border-border bg-card/50 md:h-80 md:w-80">
+              <div className="h-72 w-72 overflow-hidden rounded-full border-2 border-border bg-card/50 md:h-80 md:w-80">
                 <Image
                   src="/images/profile.jpg"
-                  alt="Profile photo"
+                  alt={dictionary.about.imageAlt}
                   fill
                   sizes="(min-width: 768px) 20rem, 18rem"
-                  className="object-cover rounded-[100px]"
+                  className="object-cover rounded-full"
                 />
               </div>
             </div>

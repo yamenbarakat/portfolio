@@ -2,18 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { FiMenu as Menu, FiX as X } from "react-icons/fi";
-
-const navLinks = [
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
+import { useDictionary } from "@/components/dictionary-provider";
+import { LanguageToggle } from "@/components/language-toggle";
 
 export function Header() {
+  const { dictionary } = useDictionary();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: dictionary.nav.projects, href: "#projects" },
+    { label: dictionary.nav.skills, href: "#skills" },
+    { label: dictionary.nav.certifications, href: "#certifications" },
+    { label: dictionary.nav.about, href: "#about" },
+    { label: dictionary.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +28,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${
         isScrolled
           ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-lg shadow-background/20"
           : "bg-transparent"
@@ -39,35 +42,42 @@ export function Header() {
           YB
         </a>
 
-        {/* Desktop Navigation */}
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:text-base"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden items-center gap-8 md:flex">
+          <ul className="flex items-center gap-8">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:text-base"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <LanguageToggle />
+        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-foreground md:hidden"
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMobileMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <LanguageToggle />
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-foreground"
+            aria-label={
+              isMobileMenuOpen
+                ? dictionary.nav.closeMenu
+                : dictionary.nav.openMenu
+            }
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="border-b border-border bg-background/95 backdrop-blur-lg md:hidden">
           <ul className="flex flex-col gap-1 px-6 py-4">
