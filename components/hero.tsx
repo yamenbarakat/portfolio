@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { FiArrowDown as ArrowDown } from "react-icons/fi";
 import { useDictionary } from "@/components/dictionary-provider";
@@ -8,12 +8,6 @@ import { useDictionary } from "@/components/dictionary-provider";
 export function Hero() {
   const { dictionary } = useDictionary();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -103,13 +97,11 @@ export function Hero() {
       <canvas ref={canvasRef} className="absolute inset-0" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col items-center gap-4 px-6 py-28 md:flex-row md:items-center md:justify-between md:gap-6 md:py-0">
-        <div
-          className={`w-full flex-1 text-center transition-all duration-1000 ease-out md:text-start ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <div className="w-full flex-1 text-center md:text-start">
           <p className="mb-4 font-mono text-sm tracking-widest text-primary uppercase">
             {dictionary.hero.eyebrow}
           </p>
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance">
+          <h1 className="mb-6 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-5xl lg:text-6xl text-balance">
             {dictionary.hero.titleBefore}
             <br />
             <span className="text-primary">
@@ -128,16 +120,16 @@ export function Hero() {
           </a>
         </div>
 
-        <div
-          className={`relative hidden w-[min(515px,100%)] shrink-0 transition-all duration-1000 ease-out delay-200 md:block ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <div className="relative hidden w-[min(515px,100%)] shrink-0 md:block">
           <Image
             src="/images/photo_transparent.png"
             alt={dictionary.about.imageAlt}
             width={515}
             height={800}
             priority
-            className="h-auto max-h-[min(800px,70vh)] w-full max-w-[515px] object-contain drop-shadow-2xl"
+            fetchPriority="high"
+            sizes="515px"
+            className="h-auto max-h-[min(800px,100vh)] w-full max-w-[515px] object-contain drop-shadow-2xl"
           />
         </div>
       </div>

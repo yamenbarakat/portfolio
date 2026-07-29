@@ -153,7 +153,7 @@ function ProjectCard({
           src={project.image}
           alt={title}
           fill
-          sizes="(min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1152px) 544px, (min-width: 640px) calc(50vw - 44px), calc(100vw - 48px)"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-background/60 opacity-0 transition-opacity duration-300 group-hover:opacity-30" />

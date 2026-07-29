@@ -247,7 +247,7 @@ function CertCard({
           alt={title}
           width={800}
           height={600}
-          sizes="(min-width: 768px) 33vw, 50vw"
+          sizes="(min-width: 1152px) 352px, (min-width: 640px) calc(33vw - 24px), calc(50vw - 32px)"
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
