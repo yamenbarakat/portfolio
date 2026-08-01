@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { i18n, isLocale, type Locale } from "@/i18n-config";
 import { getDictionary } from "@/get-dictionary";
+import { getSiteUrl } from "@/lib/site-url";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -33,8 +34,11 @@ export async function generateMetadata({
   const { locale: localeParam } = await params;
   const locale: Locale = isLocale(localeParam) ? localeParam : "en";
   const dictionary = await getDictionary(locale);
+  const canonicalPath = `/${locale}`;
+  const socialImage = "/og.png";
 
   return {
+    metadataBase: getSiteUrl(),
     title: dictionary.meta.title,
     description: dictionary.meta.description,
     keywords: [
@@ -46,7 +50,38 @@ export async function generateMetadata({
       "يامن",
       "مطور مواقع ويب",
     ],
-    authors: [{ name: "Yamen" }],
+    authors: [{ name: "Yamen Barakat", url: canonicalPath }],
+    creator: "Yamen Barakat",
+    publisher: "Yamen Barakat",
+    alternates: {
+      canonical: canonicalPath,
+      languages: {
+        en: "/en",
+        ar: "/ar",
+        "x-default": "/en",
+      },
+    },
+    openGraph: {
+      type: "website",
+      url: canonicalPath,
+      title: dictionary.meta.title,
+      description: dictionary.meta.description,
+      siteName: "Yamen Barakat Portfolio",
+      locale: locale === "ar" ? "ar_OM" : "en_US",
+      alternateLocale: locale === "ar" ? ["en_US"] : ["ar_OM"],
+      images: [
+        {
+          url: socialImage,
+          alt: dictionary.meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dictionary.meta.title,
+      description: dictionary.meta.description,
+      images: [socialImage],
+    },
     verification: {
       google: "AUWQocc6IsHHaayif9En-t3AZvaOM7jxqCsVI0c4UG4",
     },

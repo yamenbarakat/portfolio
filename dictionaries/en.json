@@ -4,6 +4,7 @@
     "description": "Professional portfolio of Yamen, a Full Stack Developer specializing in Next.js, React, and modern web apps."
   },
   "nav": {
+    "services": "Services",
     "projects": "Projects",
     "skills": "Skills",
     "certifications": "Certifications",
@@ -21,11 +22,43 @@
     "description": "Building modern, scalable web applications with React.js & Next.js and thoughtful user experiences. Passionate about turning ideas into elegant digital solutions.",
     "cta": "View My Work"
   },
+  "services": {
+    "eyebrow": "Services",
+    "title": "How I Can Help",
+    "description": "I build practical, scalable web experiences that help businesses present their services, serve customers, and manage day-to-day operations.",
+    "items": {
+      "businessWebsites": {
+        "title": "Business Websites & Landing Pages",
+        "description": "Fast, responsive websites that clearly present your business, build trust, and turn visitors into enquiries or customers."
+      },
+      "orderingSystems": {
+        "title": "Ordering & Reservation Systems",
+        "description": "Straightforward digital experiences for browsing offerings, placing orders, making reservations, and reviewing customer activity."
+      },
+      "bookingPlatforms": {
+        "title": "Booking Platforms",
+        "description": "Secure booking experiences with availability, date selection, customer accounts, and clear reservation management."
+      },
+      "adminDashboards": {
+        "title": "Admin Dashboards",
+        "description": "Focused internal tools that organize business data, surface useful insights, and simplify everyday management tasks."
+      },
+      "multilingualApps": {
+        "title": "Multilingual Web Applications",
+        "description": "Accessible applications built for multiple languages, including polished right-to-left experiences for Arabic users."
+      },
+      "improvements": {
+        "title": "Redesigns, Performance & Maintenance",
+        "description": "Improvements to existing websites through cleaner interfaces, faster performance, responsive fixes, and dependable ongoing support."
+      }
+    }
+  },
   "projects": {
     "eyebrow": "Featured Work",
     "title": "Some of My Projects",
     "filterLabel": "Filter by Category:",
     "viewLive": "View Live",
+    "otherExperiments": "Other experiments",
     "loading": "Loading projects…",
     "filters": {
       "all": "All",
@@ -116,9 +149,23 @@
     "title": "About Me",
     "p1Before": "Hello! I'm",
     "p1Name": "Yamen Barakat",
-    "p1After": "from Syria but living in Oman, a passionate Full Stack Developer with a strong foundation in modern web technologies. I love crafting clean, efficient, and user-friendly applications that solve real-world problems. My journey in development started with a curiosity for how things work on the web, and it has since evolved into a full-blown career.",
-    "p2": "I specialize in building end-to-end web applications using the MERN stack and Next.js. From designing responsive frontends with React and Tailwind CSS to architecting robust backends with Node.js and MongoDB, I enjoy every step of the development process.",
-    "p3": "When I'm not coding, you'll find me playing video games or exploring new technologies. I believe in continuous learning and strive to stay ahead in this ever-evolving field.",
+    "p1After": "a Full Stack Developer from Syria, based in Oman. After completing the literary secondary-school track in Syria, I began learning web development independently in 2018 and have focused on building complete, real-world projects since 2023.",
+    "p2": "My learning path combines courses from Udacity, Coursera, and Udemy with trusted resources such as MDN, web.dev, and official technology resources. I continue to strengthen my skills through practical development and continuous learning.",
+    "p3": "I approach technical challenges through research, careful investigation, systematic debugging, and independent problem-solving. When additional insight is useful, I consult trusted developer communities such as Stack Overflow and use AI tools efficiently.",
+    "highlights": {
+      "learning": {
+        "value": "Since 2018",
+        "label": "Self-directed web development learning"
+      },
+      "projects": {
+        "value": "Since 2023",
+        "label": "Building complete real-world projects"
+      },
+      "languages": {
+        "value": "English",
+        "label": "Excellent proficiency"
+      }
+    },
     "imageAlt": "Profile photo"
   },
   "contact": {
@@ -135,7 +182,7 @@
     "failed": "Failed, Try Again",
     "send": "Send Message",
     "connect": "Connect With Me",
-    "connectText": "I'm always open to discussing new projects, creative ideas, or opportunities to be part of something great. Feel free to reach out!"
+    "connectText": "I'm available for freelance, contract, part-time, full-time, and remote opportunities. Based in Oman, I typically respond to new enquiries within 24 hours."
   },
   "footer": {
     "rights": "YB. All rights reserved."

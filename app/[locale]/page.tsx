@@ -1,5 +1,6 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
+import { Services } from "@/components/services";
 import { Projects } from "@/components/projects";
 import { Skills } from "@/components/skills";
 import { Certifications } from "@/components/certifications";
@@ -30,6 +31,7 @@ export default async function Home({
       <Header dictionary={dictionary} locale={locale} />
       <main>
         <Hero dictionary={dictionary} />
+        <Services dictionary={dictionary} />
         <Projects
           dictionary={dictionary}
           selectedFilter={selectedProjectFilter}

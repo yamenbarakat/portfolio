@@ -17,6 +17,7 @@ export function Header({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
+    { label: dictionary.nav.services, href: "#services" },
     { label: dictionary.nav.projects, href: "#projects" },
     { label: dictionary.nav.skills, href: "#skills" },
     { label: dictionary.nav.certifications, href: "#certifications" },
@@ -48,8 +49,8 @@ export function Header({
           YB
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
-          <ul className="flex items-center gap-8">
+        <div className="hidden items-center gap-5 md:flex lg:gap-8">
+          <ul className="flex items-center gap-5 lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a

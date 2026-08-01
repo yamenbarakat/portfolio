@@ -3,6 +3,12 @@ import { Reveal } from "@/components/reveal";
 import type { Dictionary } from "@/get-dictionary";
 
 export function About({ dictionary }: { dictionary: Dictionary }) {
+  const highlights = [
+    dictionary.about.highlights.learning,
+    dictionary.about.highlights.projects,
+    dictionary.about.highlights.languages,
+  ];
+
   return (
     <section
       id="about"
@@ -37,7 +43,7 @@ export function About({ dictionary }: { dictionary: Dictionary }) {
 
           <div className="shrink-0">
             <div className="relative">
-              <div className="h-72 w-72 overflow-hidden rounded-full border-2 border-border bg-card/50 md:h-80 md:w-80">
+              <div className="relative h-72 w-72 overflow-hidden rounded-full border-2 border-border bg-card/50 md:h-80 md:w-80">
                 <Image
                   src="/images/profile.jpg"
                   alt={dictionary.about.imageAlt}
@@ -48,6 +54,22 @@ export function About({ dictionary }: { dictionary: Dictionary }) {
               </div>
             </div>
           </div>
+        </Reveal>
+
+        <Reveal className="mt-14 grid gap-4 sm:grid-cols-3">
+          {highlights.map((highlight) => (
+            <div
+              key={highlight.label}
+              className="rounded-xl border border-border bg-background/60 p-5 text-center"
+            >
+              <p className="text-xl font-bold text-primary md:text-2xl">
+                {highlight.value}
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                {highlight.label}
+              </p>
+            </div>
+          ))}
         </Reveal>
       </div>
     </section>

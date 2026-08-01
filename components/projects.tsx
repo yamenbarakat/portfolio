@@ -1,10 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiExternalLink as ExternalLink } from "react-icons/fi";
+import {
+  FiChevronDown as ChevronDown,
+  FiExternalLink as ExternalLink,
+} from "react-icons/fi";
 import { Reveal } from "@/components/reveal";
 import type { Dictionary } from "@/get-dictionary";
 
 const FILTER_PARAM = "pro";
+
+const flagshipProjectKeys = new Set<ProjectKey>([
+  "alyasmin",
+  "hotel",
+  "dashboard",
+  "countries",
+]);
 
 type ProjectKey = keyof Dictionary["projects"]["items"];
 
@@ -203,6 +213,12 @@ export function Projects({
       ? true
       : project.professionality === selectedFilter,
   );
+  const flagshipProjects = filteredProjects.filter((project) =>
+    flagshipProjectKeys.has(project.key),
+  );
+  const experimentProjects = filteredProjects.filter(
+    (project) => !flagshipProjectKeys.has(project.key),
+  );
 
   return (
     <section id="projects" className="py-24 md:py-32">
@@ -245,7 +261,7 @@ export function Projects({
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2">
-          {filteredProjects.map((project, i) => {
+          {flagshipProjects.map((project, i) => {
             const item = dictionary.projects.items[project.key];
             return (
               <ProjectCard
@@ -259,6 +275,31 @@ export function Projects({
             );
           })}
         </div>
+
+        {experimentProjects.length > 0 && (
+          <details className="group mt-12">
+            <summary className="mx-auto flex w-fit cursor-pointer list-none items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
+              {dictionary.projects.otherExperiments}
+              <ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+
+            <div className="mt-10 grid gap-8 sm:grid-cols-2">
+              {experimentProjects.map((project, i) => {
+                const item = dictionary.projects.items[project.key];
+                return (
+                  <ProjectCard
+                    key={project.key}
+                    project={project}
+                    index={i}
+                    title={item.title}
+                    description={item.description}
+                    viewLive={dictionary.projects.viewLive}
+                  />
+                );
+              })}
+            </div>
+          </details>
+        )}
       </div>
     </section>
   );

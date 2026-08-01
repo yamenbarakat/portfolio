@@ -35,16 +35,16 @@ export function Hero({ dictionary }: { dictionary: Dictionary }) {
           </a>
         </div>
 
-        <div className="relative hidden w-[min(515px,100%)] shrink-0 md:block">
+        <div className="relative mt-4 w-[min(280px,85vw)] shrink-0 md:mt-0 md:w-[min(540px,100%)]">
           <Image
             src="/images/photo_transparent.png"
             alt={dictionary.about.imageAlt}
-            width={515}
+            width={540}
             height={800}
             priority
             fetchPriority="high"
-            sizes="515px"
-            className="h-auto max-h-[min(800px,100vh)] w-full max-w-[515px] object-contain drop-shadow-2xl"
+            sizes="(max-width: 767px) 280px, 540px"
+            className="h-auto max-h-[420px] w-auto max-w-full object-contain drop-shadow-2xl md:max-h-[min(900px,100vh)]"
           />
         </div>
       </div>
