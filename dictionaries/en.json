@@ -1,7 +1,20 @@
 {
   "meta": {
-    "title": "Yamen | Full Stack Developer Portfolio",
-    "description": "Professional portfolio of Yamen, a Full Stack Developer specializing in Next.js, React, and modern web apps."
+    "title": "Yamen Barakat | Syrian Web Developer in Muscat, Oman",
+    "description": "Yamen Barakat is a Syrian web developer based in Muscat, Oman, specializing in business websites and modern React, Next.js, and full-stack applications.",
+    "keywords": [
+      "Syrian web developer",
+      "Syrian programmer",
+      "web developer in Oman",
+      "web developer in Muscat",
+      "website developer Oman",
+      "website designer Muscat",
+      "full stack developer Oman",
+      "React developer Oman",
+      "Next.js developer Oman",
+      "business website development Oman",
+      "Yamen Barakat"
+    ]
   },
   "nav": {
     "services": "Services",
@@ -19,13 +32,13 @@
     "eyebrow": "Welcome to my portfolio",
     "titleBefore": "I am Yamen Barakat",
     "titleHighlight": "Full Stack Developer",
-    "description": "Building modern, scalable web applications with React.js & Next.js and thoughtful user experiences. Passionate about turning ideas into elegant digital solutions.",
+    "description": "A Syrian web developer based in Muscat, Oman, building fast, scalable business websites and web applications with React.js and Next.js. I turn ideas into polished, responsive digital solutions.",
     "cta": "View My Work"
   },
   "services": {
     "eyebrow": "Services",
     "title": "How I Can Help",
-    "description": "I build practical, scalable web experiences that help businesses present their services, serve customers, and manage day-to-day operations.",
+    "description": "I provide website design and development in Muscat and across Oman, building practical web experiences that help businesses present services, serve customers, and manage daily operations.",
     "items": {
       "businessWebsites": {
         "title": "Business Websites & Landing Pages",
@@ -149,7 +162,7 @@
     "title": "About Me",
     "p1Before": "Hello! I'm",
     "p1Name": "Yamen Barakat",
-    "p1After": "a Full Stack Developer from Syria, based in Oman. After completing the literary secondary-school track in Syria, I began learning web development independently in 2018 and have focused on building complete, real-world projects since 2023.",
+    "p1After": "a Syrian web developer based in Muscat, Oman, specializing in front-end and Full Stack development. After completing the literary secondary-school track in Syria, I began learning web development independently in 2018 and have focused on building complete, real-world projects since 2023.",
     "p2": "My learning path combines courses from Udacity, Coursera, and Udemy with trusted resources such as MDN, web.dev, and official technology resources. I continue to strengthen my skills through practical development and continuous learning.",
     "p3": "I approach technical challenges through research, careful investigation, systematic debugging, and independent problem-solving. When additional insight is useful, I consult trusted developer communities such as Stack Overflow and use AI tools efficiently.",
     "highlights": {
