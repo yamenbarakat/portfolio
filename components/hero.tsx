@@ -10,6 +10,7 @@ export function Hero({ dictionary }: { dictionary: Dictionary }) {
       className="relative flex min-h-screen items-center overflow-hidden"
     >
       <HeroBackground />
+      <div className="hero-right-light" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col items-center gap-4 px-6 py-28 md:flex-row md:items-center md:justify-between md:gap-6 md:py-0">
         <div className="w-full flex-1 text-center md:text-start">
@@ -35,7 +36,8 @@ export function Hero({ dictionary }: { dictionary: Dictionary }) {
           </a>
         </div>
 
-        <div className="relative mt-4 hidden w-[min(280px,85vw)] shrink-0 md:mt-0 md:block md:w-[min(540px,100%)]">
+        <div className="hero-photo-stage relative mt-4 hidden w-[min(280px,85vw)] shrink-0 md:mt-0 md:block md:w-[min(540px,100%)]">
+          <div className="hero-photo-light" aria-hidden="true" />
           <Image
             src="/images/photo_transparent.png"
             alt={dictionary.about.imageAlt}
@@ -44,8 +46,18 @@ export function Hero({ dictionary }: { dictionary: Dictionary }) {
             priority
             fetchPriority="high"
             sizes="540px"
-            className="h-auto w-auto max-w-full object-contain drop-shadow-2xl md:max-h-[min(900px,100vh)]"
+            className="relative z-10 h-auto w-auto max-w-full object-contain drop-shadow-2xl md:max-h-[min(900px,100vh)]"
           />
+          <div className="hero-photo-shine" aria-hidden="true">
+            <Image
+              src="/images/photo_transparent.png"
+              alt=""
+              width={540}
+              height={800}
+              sizes="540px"
+              className="h-auto w-auto max-w-full object-contain md:max-h-[min(900px,100vh)]"
+            />
+          </div>
         </div>
       </div>
 

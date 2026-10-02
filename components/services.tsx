@@ -47,7 +47,7 @@ export function Services({ dictionary }: { dictionary: Dictionary }) {
 
             return (
               <Reveal key={service.key} delay={index * 70}>
-                <article className="group h-full rounded-xl border border-border bg-background/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
+                <article className="service-card-surface group h-full rounded-xl border border-border p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>

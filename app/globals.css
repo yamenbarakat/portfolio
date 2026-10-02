@@ -98,6 +98,136 @@ main > section:not(#hero) {
   contain-intrinsic-size: auto 900px;
 }
 
+.section-shell {
+  @apply mx-auto max-w-[1320px] px-6;
+}
+
+.section-kicker {
+  @apply font-mono text-sm text-primary;
+}
+
+.section-heading {
+  @apply text-3xl font-bold text-foreground md:text-4xl text-balance;
+}
+
+.section-number {
+  @apply font-mono text-[10px] tracking-[0.2em] text-white/35;
+}
+
+.hero-right-light {
+  position: absolute;
+  inset: -10% -12% -10% 38%;
+  pointer-events: none;
+  background: radial-gradient(circle at 72% 44%, rgba(94, 206, 190, .18), rgba(94, 206, 190, .055) 28%, transparent 62%);
+  filter: blur(18px);
+}
+
+.hero-photo-stage {
+  isolation: isolate;
+}
+
+.hero-photo-stage::before,
+.hero-photo-stage::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.hero-photo-stage::before {
+  inset: 15% -4% 4%;
+  z-index: 0;
+  clip-path: polygon(10% 0, 100% 8%, 91% 100%, 0 91%);
+  border: 1px solid rgba(255, 255, 255, .1);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px),
+    linear-gradient(145deg, rgba(94, 206, 190, .08), rgba(94, 206, 190, .018));
+  background-size: 42px 42px, 42px 42px, auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 40px 100px rgba(0, 0, 0, .22);
+}
+
+.hero-photo-stage::after {
+  inset: 23% 7% 3%;
+  z-index: 1;
+  clip-path: polygon(0 7%, 93% 0, 100% 90%, 8% 100%);
+  border: 1px solid rgba(94, 206, 190, .18);
+  background: linear-gradient(155deg, rgba(94, 206, 190, .09), rgba(94, 206, 190, .025));
+}
+
+.hero-photo-light {
+  position: absolute;
+  inset: 8% 5% 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 32%, rgba(255, 255, 255, .08) 46%, rgba(94, 206, 190, .18) 53%, transparent 70%);
+  filter: blur(18px);
+}
+
+.hero-photo-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: hero-photo-shine 6s ease-in-out infinite;
+}
+
+.hero-photo-shine img {
+  filter: brightness(1.9) saturate(.35) contrast(.85);
+  opacity: .72;
+}
+
+.service-card-surface {
+  background: linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .018));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 24px 60px rgba(0, 0, 0, .12);
+}
+
+.contact-bottom-light {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 24rem;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 100%, rgba(94, 206, 190, .12), transparent 62%);
+}
+
+.status-pulse {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgb(94, 206, 190);
+  box-shadow: 0 0 14px rgba(94, 206, 190, .8);
+}
+
+.status-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(94, 206, 190, .3);
+  border-radius: inherit;
+  animation: status-ring 2.2s ease-out infinite;
+}
+
+@keyframes hero-photo-shine {
+  0%, 24% {
+    clip-path: polygon(-38% 0, -18% 0, -5% 100%, -28% 100%);
+    opacity: 0;
+  }
+  42% { opacity: .55; }
+  58% { opacity: .55; }
+  76%, 100% {
+    clip-path: polygon(108% 0, 128% 0, 142% 100%, 119% 100%);
+    opacity: 0;
+  }
+}
+
+@keyframes status-ring {
+  0% { transform: scale(.65); opacity: .85; }
+  80%, 100% { transform: scale(1.6); opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

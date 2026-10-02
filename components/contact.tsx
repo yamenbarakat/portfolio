@@ -9,8 +9,9 @@ import type { Dictionary } from "@/get-dictionary";
 
 export function Contact({ dictionary }: { dictionary: Dictionary }) {
   return (
-    <section id="contact" className="py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="contact" className="relative overflow-hidden py-24 md:py-32">
+      <div className="contact-bottom-light" aria-hidden="true" />
+      <div className="relative mx-auto max-w-6xl px-6">
         <Reveal className="mb-16">
           <p className="mb-2 font-mono text-sm text-primary">
             {dictionary.contact.eyebrow}
