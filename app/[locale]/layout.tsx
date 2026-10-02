@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Cairo } from "next/font/google";
+import { Inter, JetBrains_Mono, Cairo, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { i18n, isLocale, type Locale } from "@/i18n-config";
@@ -13,13 +13,19 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   preload: false,
 });
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-instrument-serif",
+});
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-cairo",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#1a1a2e",
+  themeColor: "#0d0c0a",
 };
 
 export async function generateStaticParams() {
@@ -99,7 +105,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir}>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} ${cairo.variable} ${locale === "ar" ? "font-arabic" : "font-sans"} antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${instrumentSerif.variable} ${cairo.variable} ${locale === "ar" ? "font-arabic" : "font-sans"} antialiased`}
       >
         {children}
         <Analytics />

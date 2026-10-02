@@ -15,6 +15,7 @@ export function Header({
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState("");
 
   const navLinks = [
     { label: dictionary.nav.services, href: "#services" },
@@ -29,47 +30,94 @@ export function Header({
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Highlight the nav link of the section crossing the middle of the viewport
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>("main > section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHref(
+              entry.target.id === "hero" ? "" : `#${entry.target.id}`,
+            );
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
+
+  const isSolid = isScrolled || isMobileMenuOpen;
+
   return (
-    <header
-      className={`fixed top-0 start-0 end-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-lg shadow-background/20"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <nav
+        className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border py-2 ps-4 pe-2 transition-all duration-500 ${
+          isSolid
+            ? "border-border bg-background/75 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        }`}
+      >
         <a
           href="#hero"
-          className="text-xl font-bold tracking-tight text-primary transition-colors hover:text-primary/80 lg:text-2xl"
+          className="group flex items-center gap-2.5"
+          aria-label="Yamen Barakat"
         >
-          YB
+          <span className="grid h-9 w-9 place-items-center rounded-xl border border-primary/30 bg-primary/10 font-mono text-xs font-bold text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+            YB
+          </span>
         </a>
 
-        <div className="hidden items-center gap-5 md:flex lg:gap-8">
-          <ul className="flex items-center gap-5 lg:gap-8">
-            {navLinks.map((link) => (
+        <ul className="hidden items-center gap-1 rounded-full border border-border/70 bg-card/50 p-1 md:flex">
+          {navLinks.map((link) => {
+            const isActive = activeHref === link.href;
+            return (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:text-base"
+                  aria-current={isActive ? "true" : undefined}
+                  className={`relative block rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors lg:px-4 ${
+                    isActive
+                      ? "bg-secondary text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.label}
+                  <span
+                    className={`absolute start-1/2 -bottom-px h-px w-4 -translate-x-1/2 bg-primary transition-opacity rtl:translate-x-1/2 ${
+                      isActive ? "opacity-100" : "opacity-0"
+                    }`}
+                    aria-hidden="true"
+                  />
                 </a>
               </li>
-            ))}
-          </ul>
-          <LanguageToggle dictionary={dictionary} locale={locale} />
-        </div>
+            );
+          })}
+        </ul>
 
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-2">
           <LanguageToggle dictionary={dictionary} locale={locale} />
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-foreground"
+            className="grid h-9 w-9 place-items-center rounded-full border border-border bg-card/60 text-foreground md:hidden"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
             aria-label={
               isMobileMenuOpen
                 ? dictionary.nav.closeMenu
@@ -77,25 +125,35 @@ export function Header({
             }
           >
             {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-[18px] w-[18px]" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-[18px] w-[18px]" />
             )}
           </button>
         </div>
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="border-b border-border bg-background/95 backdrop-blur-lg md:hidden">
-          <ul className="flex flex-col gap-1 px-6 py-4">
-            {navLinks.map((link) => (
+        <div
+          id="mobile-menu"
+          className="surface mx-auto mt-2 max-w-6xl rounded-3xl bg-background/95 p-3 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-300 md:hidden"
+        >
+          <ul className="flex flex-col">
+            {navLinks.map((link, index) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                  className={`flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-medium transition-colors hover:bg-secondary ${
+                    activeHref === link.href
+                      ? "text-primary"
+                      : "text-foreground"
+                  }`}
                 >
                   {link.label}
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </a>
               </li>
             ))}

@@ -31,7 +31,7 @@ function LanguageToggleLink({
   return (
     <Link
       href={href}
-      className="rounded-md border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+      className="inline-flex h-9 items-center rounded-full border border-border bg-card/60 px-4 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
       hrefLang={nextLocale}
       lang={nextLocale}
     >
@@ -50,7 +50,7 @@ export function LanguageToggle({
   return (
     <Suspense
       fallback={
-        <span className="rounded-md border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground opacity-50">
+        <span className="inline-flex h-9 items-center rounded-full border border-border bg-card/60 px-4 text-sm font-medium text-muted-foreground opacity-50">
           …
         </span>
       }

@@ -6,8 +6,10 @@ import {
   FiX as X,
   FiChevronLeft as ChevronLeft,
   FiChevronRight as ChevronRight,
+  FiMaximize2 as Maximize,
 } from "react-icons/fi";
 import { useInView } from "@/hooks/use-in-view";
+import { SectionHeading } from "@/components/section-heading";
 import type { Dictionary } from "@/get-dictionary";
 import type { Locale } from "@/i18n-config";
 
@@ -70,6 +72,9 @@ const certifications: {
   },
 ];
 
+const lightboxButton =
+  "grid h-11 w-11 place-items-center rounded-full border border-border bg-card/80 text-foreground backdrop-blur-md transition-colors hover:border-primary/50 hover:text-primary";
+
 export function Certifications({
   dictionary,
   locale,
@@ -77,8 +82,6 @@ export function Certifications({
   dictionary: Dictionary;
   locale: Locale;
 }) {
-  const headingRef = useRef<HTMLDivElement>(null);
-  const isHeadingInView = useInView(headingRef, { threshold: 0.1 });
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const isRtl = locale === "ar";
 
@@ -116,19 +119,13 @@ export function Certifications({
       : "";
 
   return (
-    <section id="certifications" className="py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-6">
-        <div
-          ref={headingRef}
-          className={`mb-16 transition-all duration-700 ease-out ${isHeadingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
-          <p className="mb-2 font-mono text-sm text-primary">
-            {dictionary.certifications.eyebrow}
-          </p>
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            {dictionary.certifications.title}
-          </h2>
-        </div>
+    <section id="certifications" className="relative py-24 md:py-32">
+      <div className="section-shell">
+        <SectionHeading
+          index="04"
+          eyebrow={dictionary.certifications.eyebrow}
+          title={dictionary.certifications.title}
+        />
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6">
           {certifications.map((cert, i) => (
@@ -147,7 +144,7 @@ export function Certifications({
 
       {lightboxIndex !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-background/90 backdrop-blur-md animate-in fade-in duration-200"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
@@ -155,10 +152,10 @@ export function Certifications({
         >
           <button
             onClick={closeLightbox}
-            className="absolute top-6 end-6 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80"
+            className={`absolute top-6 end-6 ${lightboxButton}`}
             aria-label={dictionary.certifications.close}
           >
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5" />
           </button>
 
           <button
@@ -166,18 +163,18 @@ export function Certifications({
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute start-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:start-8"
+            className={`absolute start-3 md:start-8 ${lightboxButton}`}
             aria-label={dictionary.certifications.previous}
           >
             {isRtl ? (
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-5 w-5" />
             ) : (
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-5 w-5" />
             )}
           </button>
 
           <div
-            className="mx-16 max-h-[80vh] max-w-3xl overflow-hidden rounded-xl"
+            className="surface mx-16 max-h-[85vh] max-w-3xl overflow-hidden rounded-2xl p-2 animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -186,14 +183,20 @@ export function Certifications({
               width={1200}
               height={900}
               sizes="90vw"
-              className="h-auto max-h-[80vh] w-full object-contain"
+              className="h-auto max-h-[70vh] w-full rounded-xl object-contain"
             />
-            <div className="bg-card p-4 text-center">
-              <p className="text-sm font-semibold text-foreground">
-                {activeTitle}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {certifications[lightboxIndex].issuer}
+            <div className="flex items-center justify-between gap-4 px-3 pt-4 pb-2">
+              <div>
+                <p className="text-sm font-semibold text-foreground">
+                  {activeTitle}
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {certifications[lightboxIndex].issuer}
+                </p>
+              </div>
+              <p className="font-mono text-xs text-primary" dir="ltr">
+                {String(lightboxIndex + 1).padStart(2, "0")} /{" "}
+                {String(certifications.length).padStart(2, "0")}
               </p>
             </div>
           </div>
@@ -203,13 +206,13 @@ export function Certifications({
               e.stopPropagation();
               goNext();
             }}
-            className="absolute end-4 rounded-full bg-secondary p-2 text-foreground transition-colors hover:bg-secondary/80 md:end-8"
+            className={`absolute end-3 md:end-8 ${lightboxButton}`}
             aria-label={dictionary.certifications.next}
           >
             {isRtl ? (
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-5 w-5" />
             ) : (
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -240,28 +243,35 @@ function CertCard({
     <button
       ref={ref}
       onClick={onClick}
-      className={`group cursor-pointer overflow-hidden rounded-xl border border-border bg-card text-start transition-all duration-700 ease-out hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 ${
-        isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      className={`surface group cursor-pointer overflow-hidden rounded-2xl p-1.5 text-start transition-[opacity,translate,border-color] duration-700 ease-out hover:border-primary/35 ${
+        isInView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
+      style={{
+        transitionDelay: `${(index % 3) * 90}ms, ${(index % 3) * 90}ms, 0ms`,
+      }}
       aria-label={`${viewLabel}: ${title}`}
     >
-      <div className="aspect-[4/3] overflow-hidden bg-secondary">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-secondary">
         <Image
           src={image}
           alt={title}
           width={800}
           height={600}
-          sizes="(min-width: 1152px) 352px, (min-width: 640px) calc(33vw - 24px), calc(50vw - 32px)"
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(min-width: 1152px) 368px, (min-width: 640px) calc(33vw - 24px), calc(50vw - 32px)"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        <span className="absolute top-2.5 end-2.5 rounded-full border border-border bg-background/80 px-2.5 py-1 font-mono text-[10px] tracking-wider text-foreground uppercase backdrop-blur-md">
+          {issuer}
+        </span>
+        <span className="absolute inset-0 grid place-items-center bg-background/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground">
+            <Maximize className="h-4 w-4" aria-hidden="true" />
+          </span>
+        </span>
       </div>
-      <div className="p-3">
-        <p className="text-xs font-semibold text-foreground sm:text-sm">
-          {title}
-        </p>
-        <p className="text-xs text-muted-foreground">{issuer}</p>
-      </div>
+      <p className="px-2.5 pt-3.5 pb-2.5 text-xs font-semibold text-foreground sm:text-sm">
+        {title}
+      </p>
     </button>
   );
 }

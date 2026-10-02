@@ -8,6 +8,7 @@ import {
   FiTool as Tool,
 } from "react-icons/fi";
 import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
 import type { Dictionary } from "@/get-dictionary";
 
 type ServiceKey = keyof Dictionary["services"]["items"];
@@ -23,22 +24,14 @@ const services: { key: ServiceKey; icon: IconType }[] = [
 
 export function Services({ dictionary }: { dictionary: Dictionary }) {
   return (
-    <section
-      id="services"
-      className="border-t border-border bg-card/50 py-24 md:py-32"
-    >
-      <div className="mx-auto max-w-6xl px-6">
-        <Reveal className="mb-14 max-w-2xl">
-          <p className="mb-2 font-mono text-sm text-primary">
-            {dictionary.services.eyebrow}
-          </p>
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl text-balance">
-            {dictionary.services.title}
-          </h2>
-          <p className="mt-5 leading-relaxed text-muted-foreground">
-            {dictionary.services.description}
-          </p>
-        </Reveal>
+    <section id="services" className="relative py-24 md:py-32">
+      <div className="section-shell">
+        <SectionHeading
+          index="01"
+          eyebrow={dictionary.services.eyebrow}
+          title={dictionary.services.title}
+          description={dictionary.services.description}
+        />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
@@ -47,14 +40,29 @@ export function Services({ dictionary }: { dictionary: Dictionary }) {
 
             return (
               <Reveal key={service.key} delay={index * 70}>
-                <article className="service-card-surface group h-full rounded-xl border border-border p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                <article className="surface group relative h-full overflow-hidden rounded-2xl p-7 transition duration-500 hover:-translate-y-1 hover:border-primary/30">
+                  <span
+                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-primary via-ember to-transparent transition-transform duration-700 group-hover:scale-x-100 rtl:origin-right rtl:bg-gradient-to-l"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="pointer-events-none absolute -top-24 -end-24 h-48 w-48 rounded-full bg-primary/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+                    aria-hidden="true"
+                  />
+
+                  <div className="flex items-start justify-between">
+                    <div className="grid h-12 w-12 place-items-center rounded-xl border border-primary/25 bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <span className="font-mono text-xs text-muted-foreground/60">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                  <h3 className="mb-3 text-lg font-semibold text-foreground">
+
+                  <h3 className="mt-8 text-lg font-semibold tracking-tight text-foreground">
                     {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {item.description}
                   </p>
                 </article>

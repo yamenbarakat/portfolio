@@ -179,7 +179,9 @@
         "label": "Excellent in both Arabic and English"
       }
     },
-    "imageAlt": "Profile photo"
+    "imageAlt": "Profile photo",
+    "basedIn": "Based in",
+    "location": "Muscat, Oman"
   },
   "contact": {
     "eyebrow": "Say Hello",
@@ -198,6 +200,7 @@
     "connectText": "I'm available for freelance, contract, part-time, full-time, and remote opportunities. Based in Oman, I typically respond to new enquiries within 24 hours."
   },
   "footer": {
-    "rights": "YB. All rights reserved."
+    "rights": "YB. All rights reserved.",
+    "backToTop": "Back to top"
   }
 }

@@ -5,11 +5,7 @@ import { FiSend as Send } from "react-icons/fi";
 import { sendContactEmail } from "@/app/actions/contact";
 import type { Dictionary } from "@/get-dictionary";
 
-export function ContactForm({
-  copy,
-}: {
-  copy: Dictionary["contact"];
-}) {
+export function ContactForm({ copy }: { copy: Dictionary["contact"] }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,49 +39,51 @@ export function ContactForm({
           : copy.send;
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1 space-y-6">
-      <div>
-        <label
-          htmlFor="name"
-          className="mb-2 block text-sm font-medium text-foreground"
-        >
-          {copy.name}
-        </label>
-        <input
-          type="text"
-          id="name"
-          required
-          value={formData.name}
-          onChange={(event) =>
-            setFormData({ ...formData, name: event.target.value })
-          }
-          placeholder={copy.namePlaceholder}
-          className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="email"
-          className="mb-2 block text-sm font-medium text-foreground"
-        >
-          {copy.email}
-        </label>
-        <input
-          type="email"
-          id="email"
-          required
-          value={formData.email}
-          onChange={(event) =>
-            setFormData({ ...formData, email: event.target.value })
-          }
-          placeholder={copy.emailPlaceholder}
-          className="w-full rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-        />
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label
+            htmlFor="name"
+            className="mb-2 block font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase"
+          >
+            {copy.name}
+          </label>
+          <input
+            type="text"
+            id="name"
+            required
+            value={formData.name}
+            onChange={(event) =>
+              setFormData({ ...formData, name: event.target.value })
+            }
+            placeholder={copy.namePlaceholder}
+            className="w-full rounded-xl border border-border bg-background/60 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition focus:border-primary/60 focus:bg-background focus:outline-none focus:ring-4 focus:ring-primary/10"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="email"
+            className="mb-2 block font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase"
+          >
+            {copy.email}
+          </label>
+          <input
+            type="email"
+            id="email"
+            required
+            value={formData.email}
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+            placeholder={copy.emailPlaceholder}
+            className="w-full rounded-xl border border-border bg-background/60 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition focus:border-primary/60 focus:bg-background focus:outline-none focus:ring-4 focus:ring-primary/10"
+          />
+        </div>
       </div>
       <div>
         <label
           htmlFor="message"
-          className="mb-2 block text-sm font-medium text-foreground"
+          className="mb-2 block font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase"
         >
           {copy.message}
         </label>
@@ -98,22 +96,22 @@ export function ContactForm({
             setFormData({ ...formData, message: event.target.value })
           }
           placeholder={copy.messagePlaceholder}
-          className="w-full resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+          className="w-full resize-none rounded-xl border border-border bg-background/60 px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition focus:border-primary/60 focus:bg-background focus:outline-none focus:ring-4 focus:ring-primary/10"
         />
       </div>
       <button
         type="submit"
         disabled={status === "loading"}
-        className={`inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm font-semibold transition-all ${
+        className={`group inline-flex w-full items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-sm font-semibold transition-all sm:w-auto ${
           status === "error"
-            ? "bg-red-500 text-white"
+            ? "bg-destructive text-white"
             : status === "success"
-              ? "bg-green-500 text-white"
-              : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+              ? "bg-emerald-500 text-white"
+              : "bg-primary text-primary-foreground shadow-[0_10px_40px_-12px_rgba(242,169,59,0.55)] hover:-translate-y-0.5 hover:shadow-[0_16px_50px_-12px_rgba(242,169,59,0.75)]"
         } disabled:cursor-not-allowed disabled:opacity-70`}
       >
         {buttonLabel}
-        <Send className="h-4 w-4" />
+        <Send className="h-4 w-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
       </button>
     </form>
   );
